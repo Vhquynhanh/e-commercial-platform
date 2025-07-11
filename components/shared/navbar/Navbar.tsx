@@ -98,7 +98,7 @@ const Navbar = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                pathname === "favorites"
+                pathname === "/product/favourites"
                   ? "bg-blue-100 text-blue-700"
                   : "text-gray-700 hover:text-blue-600"
               }`}
@@ -112,7 +112,7 @@ const Navbar = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                pathname === "history"
+                pathname === "/product/history"
                   ? "bg-blue-100 text-blue-700"
                   : "text-gray-700 hover:text-blue-600"
               }`}
