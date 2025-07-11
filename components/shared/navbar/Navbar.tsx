@@ -1,128 +1,129 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Icon } from "@iconify/react";
-import { Sheet, SheetClose } from "@/components/ui/sheet";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Heart, History, Menu, ShoppingBag, X } from "lucide-react";
+import { useProduct } from "@/contexts/ProductContext";
 import Theme from "./Theme";
-import MobileNav from "./MobileNav";
-
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { navbarLinks } from "@/constants";
-import SearchModal from "@/components/modal/SearchModal";
-import UserModal from "@/components/modal/UserModal";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-  const [productsData, setProductsData] = useState<any[]>([]);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
-  useEffect(() => {
-    const userData = localStorage.getItem("userData");
-    if (userData) {
-      try {
-        const parsedData = JSON.parse(userData);
-        setUser(parsedData);
-      } catch (error) {
-        console.error("Failed to parse user data from localStorage:", error);
-      }
-    }
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    // const getAllProducts = async () => {
-    //   try {
-    //     const data = await fetchProducts();
-    //     if (isMounted) {
-    //       setProductsData(data);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error loading posts:", error);
-    //   }
-    // };
-    // getAllProducts();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { favorites, viewHistory } = useProduct();
+
   return (
-    <nav className="flex-between background-light700_dark300 fixed z-50 h-[79px] w-full gap-5 border-b p-6 dark:border-transparent sm:px-5 ">
-      <Link href="/" className="flex items-center gap-1 pl-5">
-        <p className="text-dark100_light500 text-3xl logo">JewelryStore</p>
-        <p className="text-primary-100 text-3xl">.</p>
-      </Link>
-
-      {/* Sidebar links */}
-      <div className="hidden w-auto sm:flex ml-[15%]">
-        <Sheet>
-          {navbarLinks.map((item) => {
-            const isActive = pathname === item.route;
-            return (
-              <SheetClose asChild key={item.route}>
-                <Link
-                  href={item.route}
-                  className={`${
-                    isActive
-                      ? "text-primary-100 rounded-lg"
-                      : "text-dark100_light500"
-                  } text-[13px] w-[120px] font-medium flex h-[40px] items-center justify-center gap-4 bg-transparent p-4`}
-                >
-                  {/* <Icon className="text-2xl text-light-500" icon={item.icon} /> */}
-                  <p className={`${isActive ? "font-medium" : ""}`}>
-                    {item.label}
-                  </p>
-                </Link>
-              </SheetClose>
-            );
-          })}
-        </Sheet>
-      </div>
-
-      <div className="flex-between w-auto pr-5">
-        <Theme />
-        <Icon
-          icon="cuida:search-outline"
-          onClick={() => setIsSearchModalOpen(true)}
-          className="text-dark100_light500 mr-5 font-bold text-[20px]"
-        />
-        {isSearchModalOpen && (
-          <SearchModal
-            onClose={() => setIsSearchModalOpen(false)}
-            productsData={productsData}
-          />
-        )}
-
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton>
-            <div className="text-dark100_light500 mr-5 text-[16px] font-medium cursor-pointer">
-              Login
+    <>
+      <div className="flex items-center justify-between h-16">
+        <Link href="/" className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <ShoppingBag className="w-5 h-5 text-white" />
             </div>
-          </SignInButton>
-        </SignedOut>
-
-        <Icon
-          icon="solar:user-bold"
-          className="text-dark100_light500 mr-5 text-[20px]"
-          onClick={() => setIsUserModalOpen(true)} // Mở modal khi nhấn
-        />
-        <UserModal
-          isOpen={isUserModalOpen}
-          onClose={() => setIsUserModalOpen(false)} // Đóng modal
-        />
-
-        <Link href="/cart">
-          <Icon icon="mdi:cart" className="text-dark100_light500 text-[20px]" />
+            <h1 className="text-xl font-bold text-gray-900">EduMarket</h1>
+          </div>
         </Link>
 
-        <div className="flex w-auto sm:hidden">
-          <MobileNav />
-        </div>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8">
+          <Theme />
+          <button
+            onClick={() => router.push("/")}
+            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              pathname === "/"
+                ? "bg-blue-100 text-blue-700"
+                : "text-gray-700 hover:text-blue-600"
+            }`}
+          >
+            Trang chủ
+          </button>
+          <button
+            onClick={() => router.push("/product/favourites")}
+            className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              pathname === "favored"
+                ? "bg-blue-100 text-blue-700"
+                : "text-gray-700 hover:text-blue-600"
+            }`}
+          >
+            <Heart className="w-4 h-4" />
+            <span>Yêu thích ({favorites.length})</span>
+          </button>
+          <button
+            onClick={() => router.push("/product/history")}
+            className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              pathname === "/product/history"
+                ? "bg-blue-100 text-blue-700"
+                : "text-gray-700 hover:text-blue-600"
+            }`}
+          >
+            <History className="w-4 h-4" />
+            <span>Lịch sử ({viewHistory.length})</span>
+          </button>
+        </nav>
+
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600"
+        >
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
+        </button>
       </div>
-    </nav>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t bg-white py-4">
+          <div className="flex flex-col space-y-2">
+            <Theme />
+            <button
+              onClick={() => {
+                router.push("/");
+                setMobileMenuOpen(false);
+              }}
+              className={`text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                pathname === "/"
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+            >
+              Trang chủ
+            </button>
+            <button
+              onClick={() => {
+                router.push("/product/favourites");
+                setMobileMenuOpen(false);
+              }}
+              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                pathname === "favorites"
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+            >
+              <Heart className="w-4 h-4" />
+              <span>Yêu thích ({favorites.length})</span>
+            </button>
+            <button
+              onClick={() => {
+                router.push("/product/history");
+                setMobileMenuOpen(false);
+              }}
+              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                pathname === "history"
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+            >
+              <History className="w-4 h-4" />
+              <span>Lịch sử ({viewHistory.length})</span>
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,8 +1,15 @@
-"use client";
-import React from "react";
+import { auth } from "@/auth";
+import HomeForm from "@/components/form/HomeForm";
 
-const page = () => {
-  return <div>hello</div>;
-};
+export default async function DashboardPage() {
+  // const session = await auth();
+  // if (!session?.user) redirect("/sign-in");
+  // const userId = session?.user?.id;
 
-export default page;
+  // if (!userId) {
+  //   return (
+  //     <p className="text-red-500 p-4">Bạn cần đăng nhập để tạo danh mục.</p>
+  //   );
+  // }
+  return <HomeForm />;
+}
