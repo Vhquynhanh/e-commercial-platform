@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Product } from "@/types/product";
 import { Heart, Star, Users, Clock, Eye } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
+import { useProduct } from "@/contexts/ProductContext";
 
 interface ProductCardProps {
   product: Product;
@@ -11,35 +13,29 @@ interface ProductCardProps {
   onAddToHistory?: (productId: string) => void;
 }
 
-export default function ProductCard({
-  product,
-  isFavorite = false,
-  onToggleFavorite,
-  onViewDetail,
-  onAddToHistory
-}: ProductCardProps) {
+export default function ProductCard({ product }: { product: Product }) {
+  const {
+    favorites,
+    handleToggleFavorite,
+    handleAddToHistory,
+    handleViewDetail
+  } = useProduct();
+  const isFavorite = favorites.includes(product.id);
   const [isHovered, setIsHovered] = useState(false);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND"
-    }).format(price);
-  };
-
-  const handleViewDetail = () => {
-    if (onAddToHistory) {
-      onAddToHistory(product.id);
+  const onViewDetail = () => {
+    if (handleAddToHistory) {
+      handleAddToHistory(product.id);
     }
-    if (onViewDetail) {
-      onViewDetail(product);
+    if (handleViewDetail) {
+      handleViewDetail(product);
     }
   };
 
-  const handleToggleFavorite = (e: React.MouseEvent) => {
+  const onToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (onToggleFavorite) {
-      onToggleFavorite(product.id);
+    if (handleToggleFavorite) {
+      handleToggleFavorite(product.id);
     }
   };
 
@@ -50,7 +46,7 @@ export default function ProductCard({
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleViewDetail}
+      onClick={onViewDetail}
     >
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
@@ -64,7 +60,7 @@ export default function ProductCard({
 
         {/* Favorite Button */}
         <button
-          onClick={handleToggleFavorite}
+          onClick={onToggleFavorite}
           className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-200 ${
             isFavorite
               ? "bg-red-500 text-white shadow-lg"
@@ -142,7 +138,7 @@ export default function ProductCard({
           </div>
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center space-x-2"
-            onClick={handleViewDetail}
+            onClick={onViewDetail}
           >
             <Eye className="w-4 h-4" />
             <span>Chi tiết</span>

@@ -10,22 +10,22 @@ import {
   ShoppingCart,
   PlayCircle
 } from "lucide-react";
+import { useProduct } from "@/contexts/ProductContext";
+import { formatPrice } from "@/lib/utils";
 
-interface ProductModalProps {
-  product: Product | null;
-  isOpen: boolean;
-  onClose: () => void;
-  isFavorite?: boolean;
-  onToggleFavorite?: (productId: string) => void;
-}
-
-export default function ProductModal({
-  product,
-  isOpen,
-  onClose,
-  isFavorite = false,
-  onToggleFavorite
-}: ProductModalProps) {
+export default function ProductModal() {
+  const {
+    selectedProduct,
+    showModal,
+    handleCloseModal,
+    favorites,
+    handleToggleFavorite
+  } = useProduct();
+  const isOpen = showModal;
+  const product = selectedProduct;
+  const isFavorite = selectedProduct
+    ? favorites.includes(selectedProduct.id)
+    : false;
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -40,23 +40,16 @@ export default function ProductModal({
 
   if (!isOpen || !product) return null;
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND"
-    }).format(price);
-  };
-
-  const handleToggleFavorite = (e: React.MouseEvent) => {
+  const onToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (onToggleFavorite) {
-      onToggleFavorite(product.id);
+    if (handleToggleFavorite) {
+      handleToggleFavorite(product.id);
     }
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      handleCloseModal();
     }
   };
 
@@ -72,7 +65,7 @@ export default function ProductModal({
             {product.name}
           </h2>
           <button
-            onClick={onClose}
+            onClick={handleCloseModal}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <X className="w-6 h-6" />
@@ -193,7 +186,7 @@ export default function ProductModal({
                     </span>
                   </div>
                   <button
-                    onClick={handleToggleFavorite}
+                    onClick={onToggleFavorite}
                     className={`p-3 rounded-full transition-all duration-200 ${
                       isFavorite
                         ? "bg-red-500 text-white shadow-lg"

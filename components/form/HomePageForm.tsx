@@ -340,14 +340,7 @@ export default function HomePageForm() {
               {filteredProducts.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredProducts.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      isFavorite={favorites.includes(product.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      onViewDetail={handleViewDetail}
-                      onAddToHistory={handleAddToHistory}
-                    />
+                    <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               ) : (
@@ -379,14 +372,7 @@ export default function HomePageForm() {
             {favoriteProducts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favoriteProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    isFavorite={true}
-                    onToggleFavorite={handleToggleFavorite}
-                    onViewDetail={handleViewDetail}
-                    onAddToHistory={handleAddToHistory}
-                  />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
@@ -422,14 +408,7 @@ export default function HomePageForm() {
             {historyProducts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {historyProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    isFavorite={favorites.includes(product.id)}
-                    onToggleFavorite={handleToggleFavorite}
-                    onViewDetail={handleViewDetail}
-                    onAddToHistory={handleAddToHistory}
-                  />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
@@ -452,15 +431,7 @@ export default function HomePageForm() {
       </main>
 
       {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        isFavorite={
-          selectedProduct ? favorites.includes(selectedProduct.id) : false
-        }
-        onToggleFavorite={handleToggleFavorite}
-      />
+      <ProductModal />
 
       {/* Toast Notification */}
       {showToast.show && (

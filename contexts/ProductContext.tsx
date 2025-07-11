@@ -10,9 +10,13 @@ import { toast } from "@/hooks/use-toast";
 interface ProductContextType {
   products: Product[];
   favorites: string[];
-  handleToggleFavorite: (productId: string) => void;
   viewHistory: string[];
+  selectedProduct: Product | null;
+  showModal: boolean;
+  handleToggleFavorite: (productId: string) => void;
   handleAddToHistory: (productId: string) => void;
+  handleViewDetail: (product: Product) => void;
+  handleCloseModal: () => void;
 }
 
 /* Khởi tạo context */
@@ -25,6 +29,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [viewHistory, setViewHistory] = useState<string[]>(
     mockUser.viewHistory
   );
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   /* Thêm / xoá yêu thích */
   const handleToggleFavorite = (productId: string) => {
@@ -56,14 +62,28 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  // Handle view detail
+  const handleViewDetail = (product: Product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  // Handle close modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <ProductContext.Provider
       value={{
         products,
         favorites,
-        handleToggleFavorite,
         viewHistory,
-        handleAddToHistory
+        selectedProduct,
+        showModal,
+        handleToggleFavorite,
+        handleAddToHistory,
+        handleViewDetail,
+        handleCloseModal
       }}
     >
       {children}

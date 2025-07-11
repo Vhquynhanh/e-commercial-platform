@@ -14,11 +14,9 @@ const HomeForm = () => {
     viewHistory,
     products,
     handleAddToHistory,
-    handleToggleFavorite
+    handleToggleFavorite,
+    handleViewDetail
   } = useProduct();
-  const [showModal, setShowModal] = useState(false);
-
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
     priceRange: "all",
@@ -83,18 +81,6 @@ const HomeForm = () => {
     return filtered;
   }, [products, filters]);
 
-  // Get favorite products
-  const favoriteProducts = useMemo(() => {
-    return products.filter((product) => favorites.includes(product.id));
-  }, [products, favorites]);
-
-  // Get history products
-  const historyProducts = useMemo(() => {
-    return viewHistory
-      .map((id) => products.find((p) => p.id === id))
-      .filter(Boolean) as Product[];
-  }, [products, viewHistory]);
-
   // Handle search
   const handleSearch = (query: string) => {
     setFilters((prev) => ({ ...prev, query }));
@@ -103,12 +89,6 @@ const HomeForm = () => {
   // Handle filter changes
   const handleFiltersChange = (newFilters: SearchFilters) => {
     setFilters(newFilters);
-  };
-
-  // Handle view detail
-  const handleViewDetail = (product: Product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
   };
 
   return (
@@ -159,14 +139,7 @@ const HomeForm = () => {
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                isFavorite={favorites.includes(product.id)}
-                onToggleFavorite={handleToggleFavorite}
-                onViewDetail={handleViewDetail}
-                onAddToHistory={handleAddToHistory}
-              />
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
@@ -182,15 +155,7 @@ const HomeForm = () => {
       </div>
 
       {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        isFavorite={
-          selectedProduct ? favorites.includes(selectedProduct.id) : false
-        }
-        onToggleFavorite={handleToggleFavorite}
-      />
+      <ProductModal />
     </>
   );
 };
