@@ -10,18 +10,24 @@ import { History } from "lucide-react";
 const HistoryProductForm = () => {
   const router = useRouter();
   const { products, viewHistory } = useProduct();
+
   // Get history products
   const historyProducts = useMemo(() => {
     return viewHistory
       .map((id) => products.find((p) => p.id === id))
       .filter(Boolean) as Product[];
   }, [products, viewHistory]);
+
   return (
     <>
       <div>
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Lịch sử xem</h2>
-          <p className="text-gray-600">Những khoá học bạn đã xem gần đây</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            Lịch sử xem
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            Những khoá học bạn đã xem gần đây
+          </p>
         </div>
 
         {historyProducts.length > 0 ? (
@@ -32,9 +38,11 @@ const HistoryProductForm = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <History className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">Chưa có lịch sử xem</p>
-            <p className="text-gray-400 mt-2">
+            <History className="w-16 h-16 text-gray-300 dark:text-gray-500 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              Chưa có lịch sử xem
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 mt-2">
               Hãy khám phá các khoá học để xem lịch sử
             </p>
             <button

@@ -7,7 +7,7 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarTrigger,
+  MenubarTrigger
 } from "@/components/ui/menubar";
 import Image from "next/image";
 import { themes } from "@/constants";
@@ -15,8 +15,9 @@ import "@/styles/theme.css";
 
 const Theme = () => {
   const { mode, setMode } = useTheme();
+
   return (
-    <Menubar className="relative border-none bg-transparent shadow-none">
+    <Menubar className="relative border-none">
       <MenubarMenu>
         <MenubarTrigger>
           {mode === "light" ? (
@@ -39,16 +40,13 @@ const Theme = () => {
         </MenubarTrigger>
         <MenubarContent
           className="absolute -right-12 mt-3 min-w-[120px]
-        rounded border py-2 dark:border-dark-400
-       dark:bg-dark-300
-        "
+        rounded border py-2 dark:border-gray-700 dark:bg-gray-800
+        bg-gray-50 text-gray-900 dark:text-gray-200"
         >
           {themes.map((item) => (
             <MenubarItem
               key={item.value}
-              className="flex items-center
-              gap-4 px-2.5 py-2
-              dark:focus:bg-dark-400"
+              className="flex items-center gap-4 px-2.5 py-2 dark:hover:bg-gray-600 hover:bg-gray-200 rounded-md transition-colors"
               onClick={() => {
                 setMode(item.value);
                 if (item.value !== "system") {
@@ -63,13 +61,13 @@ const Theme = () => {
                 alt={item.value}
                 width={16}
                 height={16}
-                className={`${mode === item.value && "active-theme"}`}
+                className={`${mode === item.value && "text-blue-500"}`}
               />
               <p
-                className={`body-semibold ${
+                className={`font-semibold ${
                   mode === item.value
-                    ? "text-primary-100"
-                    : "text-dark100_light500"
+                    ? "text-blue-500"
+                    : "text-gray-700 dark:text-gray-300"
                 }`}
               >
                 {item.label}

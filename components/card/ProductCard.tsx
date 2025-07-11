@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div
-      className={`bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer ${
+      className={`bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer ${
         isHovered ? "shadow-xl transform -translate-y-1" : ""
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -64,7 +64,7 @@ export default function ProductCard({ product }: { product: Product }) {
           className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-200 ${
             isFavorite
               ? "bg-red-500 text-white shadow-lg"
-              : "bg-white/90 text-gray-600 hover:bg-white hover:text-red-500"
+              : "bg-white/90 text-gray-600 hover:bg-white hover:text-red-500 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
           }`}
         >
           <Heart className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`} />
@@ -75,10 +75,10 @@ export default function ProductCard({ product }: { product: Product }) {
           <span
             className={`px-2 py-1 text-xs font-medium rounded-full ${
               product.level === "Beginner"
-                ? "bg-green-100 text-green-800"
+                ? "bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100"
                 : product.level === "Intermediate"
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
+                ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100"
+                : "bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100"
             }`}
           >
             {product.level}
@@ -90,28 +90,32 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="p-4">
         {/* Category */}
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-blue-600 font-medium">
+          <span className="text-sm text-blue-600 font-medium dark:text-blue-400">
             {product.category}
           </span>
           <div className="flex items-center space-x-1">
             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-sm text-gray-600">{product.rating}</span>
-            <span className="text-sm text-gray-400">({product.reviews})</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              {product.rating}
+            </span>
+            <span className="text-sm text-gray-400 dark:text-gray-500">
+              ({product.reviews})
+            </span>
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 leading-tight">
+        <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 leading-tight dark:text-white">
           {product.name}
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+        <p className="text-gray-600 text-sm mb-3 line-clamp-2 dark:text-gray-300">
           {product.shortDescription}
         </p>
 
         {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
+        <div className="flex items-center justify-between text-sm text-gray-500 mb-3 dark:text-gray-400">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <Users className="w-4 h-4" />
@@ -125,14 +129,14 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Instructor */}
-        <p className="text-sm text-gray-600 mb-3">
+        <p className="text-sm text-gray-600 mb-3 dark:text-gray-300">
           Giảng viên: <span className="font-medium">{product.instructor}</span>
         </p>
 
         {/* Price and Action */}
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-blue-600">
+            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
               {formatPrice(product.price)}
             </span>
           </div>
@@ -150,13 +154,13 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
+              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full dark:bg-gray-700 dark:text-gray-300"
             >
               {tag}
             </span>
           ))}
           {product.tags.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+            <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full dark:bg-gray-700 dark:text-gray-300">
               +{product.tags.length - 3}
             </span>
           )}

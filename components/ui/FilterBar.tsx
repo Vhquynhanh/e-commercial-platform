@@ -1,4 +1,3 @@
-// components/ui/FilterBar.tsx
 "use client";
 import { SearchFilters } from "@/types/product";
 import { Filter, ChevronDown } from "lucide-react";
@@ -53,16 +52,20 @@ export default function FilterBar({
     filters.priceRange !== "all" || filters.category || filters.level;
 
   return (
-    <div className={`bg-white rounded-lg shadow-sm border ${className}`}>
+    <div
+      className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border ${className}`}
+    >
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-gray-500" />
-            <h3 className="font-semibold text-gray-900">Bộ lọc</h3>
+            <Filter className="w-5 h-5 text-gray-500 dark:text-gray-300" />
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Bộ lọc
+            </h3>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center space-x-1 text-blue-600 hover:text-blue-700"
+            className="lg:hidden flex items-center space-x-1 text-blue-600 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-400"
           >
             <span>Mở rộng</span>
             <ChevronDown
@@ -80,13 +83,13 @@ export default function FilterBar({
         >
           {/* Price Range Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Mức giá
             </label>
             <select
               value={filters.priceRange}
               onChange={(e) => handleFilterChange("priceRange", e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
             >
               {priceRanges.map((range) => (
                 <option key={range.value} value={range.value}>
@@ -98,13 +101,13 @@ export default function FilterBar({
 
           {/* Category Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Danh mục
             </label>
             <select
               value={filters.category}
               onChange={(e) => handleFilterChange("category", e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
             >
               <option value="">Tất cả danh mục</option>
               {categories.map((category) => (
@@ -117,13 +120,13 @@ export default function FilterBar({
 
           {/* Level Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Trình độ
             </label>
             <select
               value={filters.level}
               onChange={(e) => handleFilterChange("level", e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
             >
               {levels.map((level) => (
                 <option key={level.value} value={level.value}>
@@ -140,7 +143,7 @@ export default function FilterBar({
               disabled={!hasActiveFilters}
               className={`w-full px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                 hasActiveFilters
-                  ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  ? "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 hover:dark:bg-gray-600"
                   : "bg-gray-50 text-gray-400 cursor-not-allowed"
               }`}
             >

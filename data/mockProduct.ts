@@ -5,7 +5,7 @@ export const mockProducts: Product[] = [
     id: "1",
     name: "Complete English Speaking Course with Native Americans",
     price: 899000,
-    image: "/api/placeholder/300/200",
+    image: "https://images.unsplash.com/photo-1556740749-887f6717d7e4", // Hình ảnh từ Unsplash
     shortDescription: "Master English conversation with native speakers",
     longDescription:
       "This comprehensive course will help you speak English fluently with confidence. Learn from native American speakers with real-world conversations, practical exercises, and personalized feedback.",
@@ -23,7 +23,8 @@ export const mockProducts: Product[] = [
     id: "2",
     name: "React & Next.js Complete Developer Course",
     price: 1299000,
-    image: "/api/placeholder/300/200",
+    image:
+      "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Hình ảnh từ Unsplash
     shortDescription: "Build modern web applications with React and Next.js",
     longDescription:
       "Learn to build full-stack applications with React and Next.js. From basics to advanced concepts including server-side rendering, API routes, and deployment.",
@@ -41,7 +42,8 @@ export const mockProducts: Product[] = [
     id: "3",
     name: "Digital Marketing Mastery for Beginners",
     price: 450000,
-    image: "/api/placeholder/300/200",
+    image:
+      "https://images.pexels.com/photos/1181350/pexels-photo-1181350.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", // Hình ảnh từ Pexels
     shortDescription: "Complete guide to digital marketing strategies",
     longDescription:
       "Learn all aspects of digital marketing including SEO, social media marketing, email marketing, and paid advertising. Perfect for beginners and small business owners.",
@@ -59,7 +61,8 @@ export const mockProducts: Product[] = [
     id: "4",
     name: "Python Data Science & Machine Learning",
     price: 1599000,
-    image: "/api/placeholder/300/200",
+    image:
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Hình ảnh từ Pexels
     shortDescription: "Master data science and ML with Python",
     longDescription:
       "Comprehensive course covering Python programming, data analysis, machine learning algorithms, and real-world projects. Includes pandas, numpy, scikit-learn, and tensorflow.",
@@ -77,7 +80,8 @@ export const mockProducts: Product[] = [
     id: "5",
     name: "Graphic Design Fundamentals",
     price: 650000,
-    image: "/api/placeholder/300/200",
+    image:
+      "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Hình ảnh từ Unsplash
     shortDescription: "Learn professional graphic design principles",
     longDescription:
       "Master the fundamentals of graphic design including color theory, typography, layout design, and using Adobe Creative Suite. Perfect for beginners and career changers.",
@@ -95,7 +99,8 @@ export const mockProducts: Product[] = [
     id: "6",
     name: "Photography Masterclass",
     price: 750000,
-    image: "/api/placeholder/300/200",
+    image:
+      "https://images.unsplash.com/photo-1719937206109-7f4e933230c8?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Hình ảnh từ Unsplash
     shortDescription: "Professional photography techniques and editing",
     longDescription:
       "Learn professional photography from composition to post-processing. Covers portrait, landscape, and commercial photography with hands-on assignments.",

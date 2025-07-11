@@ -20,7 +20,9 @@ const Navbar = () => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <ShoppingBag className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">EduMarket</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+              EduMarket
+            </h1>
           </div>
         </Link>
 
@@ -31,8 +33,8 @@ const Navbar = () => {
             onClick={() => router.push("/")}
             className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
               pathname === "/"
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-700 hover:text-blue-600"
+                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
             }`}
           >
             Trang chủ
@@ -41,8 +43,8 @@ const Navbar = () => {
             onClick={() => router.push("/product/favourites")}
             className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
               pathname === "/product/favourites"
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-700 hover:text-blue-600"
+                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
             }`}
           >
             <Heart className="w-4 h-4" />
@@ -52,8 +54,8 @@ const Navbar = () => {
             onClick={() => router.push("/product/history")}
             className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
               pathname === "/product/history"
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-700 hover:text-blue-600"
+                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
             }`}
           >
             <History className="w-4 h-4" />
@@ -64,7 +66,7 @@ const Navbar = () => {
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600"
+          className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
         >
           {mobileMenuOpen ? (
             <X className="w-6 h-6" />
@@ -76,7 +78,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-white py-4">
+        <div className="md:hidden border-t bg-white dark:bg-gray-800 py-4">
           <div className="flex flex-col space-y-2">
             <Theme />
             <button
@@ -86,8 +88,8 @@ const Navbar = () => {
               }}
               className={`text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 pathname === "/"
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-700 hover:text-blue-600"
+                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                  : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
               }`}
             >
               Trang chủ
@@ -99,8 +101,8 @@ const Navbar = () => {
               }}
               className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 pathname === "/product/favourites"
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-700 hover:text-blue-600"
+                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                  : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
               }`}
             >
               <Heart className="w-4 h-4" />
@@ -113,8 +115,8 @@ const Navbar = () => {
               }}
               className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 pathname === "/product/history"
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-700 hover:text-blue-600"
+                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                  : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
               }`}
             >
               <History className="w-4 h-4" />

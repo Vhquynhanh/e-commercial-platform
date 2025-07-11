@@ -9,18 +9,20 @@ import ProductModal from "../modal/ProductModal";
 const FavoriteProductForm = () => {
   const router = useRouter();
   const { products, favorites } = useProduct();
+
   // Get favorite products
   const favoriteProducts = useMemo(() => {
     return products.filter((product) => favorites.includes(product.id));
   }, [products, favorites]);
+
   return (
     <>
       <div>
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Khoá học yêu thích
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Danh sách các khoá học bạn đã đánh dấu yêu thích
           </p>
         </div>
@@ -33,9 +35,11 @@ const FavoriteProductForm = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">Chưa có khoá học yêu thích</p>
-            <p className="text-gray-400 mt-2">
+            <Heart className="w-16 h-16 text-gray-300 dark:text-gray-500 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              Chưa có khoá học yêu thích
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 mt-2">
               Hãy khám phá và thêm những khoá học bạn thích
             </p>
             <button
@@ -47,6 +51,7 @@ const FavoriteProductForm = () => {
           </div>
         )}
       </div>
+
       {/* Product Modal */}
       <ProductModal />
     </>
