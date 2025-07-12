@@ -22,10 +22,10 @@ const HistoryProductForm = () => {
     <>
       <div>
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl font-bold text-dark900_light100 mb-2">
             Lịch sử xem
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-dark600_light300">
             Những khoá học bạn đã xem gần đây
           </p>
         </div>
@@ -38,16 +38,16 @@ const HistoryProductForm = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <History className="w-16 h-16 text-gray-300 dark:text-gray-500 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
+            <History className="w-16 h-16 text-light300_light500 mx-auto mb-4" />
+            <p className="text-light500_light100 text-lg">
               Chưa có lịch sử xem
             </p>
-            <p className="text-gray-400 dark:text-gray-500 mt-2">
+            <p className="text-light400_light200 mt-2">
               Hãy khám phá các khoá học để xem lịch sử
             </p>
             <button
               onClick={() => router.push("/")}
-              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+              className="mt-4 bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors"
             >
               Khám phá ngay
             </button>

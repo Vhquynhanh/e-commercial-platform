@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div
-      className={`bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer ${
+      className={`background-light100_dark100 rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer ${
         isHovered ? "shadow-xl transform -translate-y-1" : ""
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -64,7 +64,7 @@ export default function ProductCard({ product }: { product: Product }) {
           className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-200 ${
             isFavorite
               ? "bg-red-500 text-white shadow-lg"
-              : "bg-white/90 text-gray-600 hover:bg-white hover:text-red-500 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              : "background-light120_dark700 text-dark600_light100 hover:background-light100_dark600 hover:text-red-500"
           }`}
         >
           <Heart className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`} />
@@ -90,32 +90,32 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="p-4">
         {/* Category */}
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-blue-600 font-medium dark:text-blue-400">
+          <span className="text-sm text-primary-600 font-medium dark:text-primary-400">
             {product.category}
           </span>
           <div className="flex items-center space-x-1">
             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-sm text-gray-600 dark:text-gray-300">
+            <span className="text-sm text-dark600_light300">
               {product.rating}
             </span>
-            <span className="text-sm text-gray-400 dark:text-gray-500">
+            <span className="text-sm text-light400_light200">
               ({product.reviews})
             </span>
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 leading-tight dark:text-white">
+        <h3 className="font-bold text-lg text-dark900_light100 mb-2 line-clamp-2 leading-tight ">
           {product.name}
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2 dark:text-gray-300">
+        <p className="text-dark600_light300 text-sm mb-3 line-clamp-2">
           {product.shortDescription}
         </p>
 
         {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-3 dark:text-gray-400">
+        <div className="flex items-center justify-between text-sm text-light500_light200 mb-3">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <Users className="w-4 h-4" />
@@ -129,19 +129,19 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Instructor */}
-        <p className="text-sm text-gray-600 mb-3 dark:text-gray-300">
+        <p className="text-sm mb-3 text-dark600_light300">
           Giảng viên: <span className="font-medium">{product.instructor}</span>
         </p>
 
         {/* Price and Action */}
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
               {formatPrice(product.price)}
             </span>
           </div>
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center space-x-2"
+            className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center space-x-2"
             onClick={onViewDetail}
           >
             <Eye className="w-4 h-4" />
@@ -154,13 +154,13 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full dark:bg-gray-700 dark:text-gray-300"
+              className="px-2 py-1 background-light100_dark700 text-dark600_light300 text-xs rounded-full"
             >
               {tag}
             </span>
           ))}
           {product.tags.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full dark:bg-gray-700 dark:text-gray-300">
+            <span className="px-2 py-1 background-light100_dark700 text-dark600_light300 text-xs rounded-full">
               +{product.tags.length - 3}
             </span>
           )}

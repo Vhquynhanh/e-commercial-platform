@@ -10,21 +10,19 @@ export const navbarLinks: NavbarLink[] = [
   {
     // icon: "fluent:home-20-regular",
     route: "/",
-    label: "HOME"
+    value: "home",
+    label: "Trang chủ"
   },
   {
     // icon: "iconoir:search",
-    route: "/product",
-    label: "PRODUCT"
+    route: "/product/favourites",
+    value: "favourties",
+    label: "Yêu thích"
   },
   {
     // icon: "pepicons-pencil:bell",
-    route: "/about-us",
-    label: "ABOUT US"
-  },
-  {
-    // icon: "ant-design:message-outlined",
-    route: "/contact",
-    label: "CONTACT"
+    route: "/product/history",
+    value: "history",
+    label: "Lịch sử"
   }
 ];

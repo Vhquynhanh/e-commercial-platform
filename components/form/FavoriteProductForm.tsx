@@ -19,10 +19,10 @@ const FavoriteProductForm = () => {
     <>
       <div>
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl font-bold text-dark900_light100 mb-2">
             Khoá học yêu thích
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-dark600_light300">
             Danh sách các khoá học bạn đã đánh dấu yêu thích
           </p>
         </div>
@@ -35,16 +35,16 @@ const FavoriteProductForm = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <Heart className="w-16 h-16 text-gray-300 dark:text-gray-500 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
+            <Heart className="w-16 h-16 text-light300_light500 mx-auto mb-4" />
+            <p className="text-light500_light100 text-light400_light200 text-lg">
               Chưa có khoá học yêu thích
             </p>
-            <p className="text-gray-400 dark:text-gray-500 mt-2">
+            <p className="text-light400_light200 mt-2">
               Hãy khám phá và thêm những khoá học bạn thích
             </p>
             <button
               onClick={() => router.push("/")}
-              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+              className="mt-4 bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors"
             >
               Khám phá ngay
             </button>

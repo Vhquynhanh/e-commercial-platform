@@ -10,14 +10,7 @@ import ProductModal from "../modal/ProductModal";
 import Footer from "../shared/footer/Footer";
 
 const HomeForm = () => {
-  const {
-    favorites,
-    viewHistory,
-    products,
-    handleAddToHistory,
-    handleToggleFavorite,
-    handleViewDetail
-  } = useProduct();
+  const { products } = useProduct();
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
     priceRange: "all",
@@ -97,10 +90,10 @@ const HomeForm = () => {
       {/* Search Section */}
       <div className="mb-8">
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl font-bold text-dark900_light100 mb-2">
             Khám phá khoá học tốt nhất
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-dark600_light300">
             Tìm kiếm và học hỏi từ những chuyên gia hàng đầu
           </p>
         </div>
@@ -118,12 +111,12 @@ const HomeForm = () => {
       {/* Products Grid */}
       <div className="mb-12">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-xl font-semibold text-dark900_light100">
             {filters.query
               ? `Kết quả tìm kiếm cho "${filters.query}"`
               : "Tất cả khoá học"}
           </h3>
-          <span className="text-gray-600 dark:text-gray-400">
+          <span className="text-dark600_light400">
             {filteredProducts.length} khoá học
           </span>
         </div>
@@ -135,10 +128,10 @@ const HomeForm = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
+            <p className="text-light-500 dark:text-light-400 text-lg">
               Không tìm thấy khoá học phù hợp
             </p>
-            <p className="text-gray-400 dark:text-gray-500 mt-2">
+            <p className="text-light-400 dark:text-light-500 mt-2">
               Hãy thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm
             </p>
           </div>

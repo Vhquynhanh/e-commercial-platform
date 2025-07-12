@@ -41,13 +41,12 @@ const Theme = ({ className }: { className?: string }) => {
         </MenubarTrigger>
         <MenubarContent
           className="absolute -right-12 mt-3 min-w-[120px]
-        rounded border py-2 dark:border-gray-700 dark:bg-gray-800
-        bg-gray-50 text-gray-900 dark:text-gray-200"
+        rounded border py-2 dark:border-dark-700 background-light50_dark100 text-dark900_light200"
         >
           {themes.map((item) => (
             <MenubarItem
               key={item.value}
-              className="flex items-center gap-4 px-2.5 py-2 dark:hover:bg-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+              className="flex items-center gap-4 px-2.5 py-2 dark:hover:bg-dark-600 hover:bg-light-200 rounded-md transition-colors"
               onClick={() => {
                 setMode(item.value);
                 if (item.value !== "system") {
@@ -62,13 +61,13 @@ const Theme = ({ className }: { className?: string }) => {
                 alt={item.value}
                 width={16}
                 height={16}
-                className={`${mode === item.value && "text-blue-500"}`}
+                className={`${mode === item.value && "text-primary-500"}`}
               />
               <p
                 className={`font-semibold ${
                   mode === item.value
-                    ? "text-blue-500"
-                    : "text-gray-700 dark:text-gray-300"
+                    ? "text-primary-500"
+                    : "text-dark700_light300"
                 }`}
               >
                 {item.label}

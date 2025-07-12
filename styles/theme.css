@@ -3,56 +3,108 @@
 @tailwind utilities;
 
 @layer utilities {
-  .background-light500_dark100 {
-    @apply bg-light-500 dark:bg-dark-100;
+  .background-light50_dark100 {
+    @apply bg-light-50 dark:bg-dark-100;
   }
 
-  .background-light700_dark400 {
-    @apply bg-light-800 dark:bg-dark-400;
+  .background-light50_dark900 {
+    @apply bg-light-50 dark:bg-dark-900;
   }
 
-  .background-light800_dark300 {
-    @apply bg-light-800 dark:bg-dark-300;
+  .background-light50_dark700 {
+    @apply bg-light-50 dark:bg-dark-700;
   }
 
-  .background-light700_dark200 {
-    @apply bg-light-800 dark:bg-dark-200;
+  .background-light100_dark100 {
+    @apply bg-light-100 dark:bg-dark-100;
   }
 
-  .background-light600_dark200 {
-    @apply bg-light-600 dark:bg-dark-200;
+  .background-light100_dark700 {
+    @apply bg-light-100 dark:bg-dark-700;
   }
 
-  .background-light700_dark300 {
-    @apply bg-light-800 dark:bg-dark-300;
+  .background-light100_dark600 {
+    @apply bg-light-100 dark:bg-dark-600;
   }
 
-  .background-light800_darkgradient {
-    @apply bg-light-800 dark:dark-gradient;
+  .background-light150_dark700 {
+    @apply bg-light-150 dark:bg-dark-700;
   }
 
-  .background-light800_dark400 {
-    @apply bg-light-800 dark:bg-dark-400 !important;
+  .background-light150_dark600 {
+    @apply bg-light-150 dark:bg-dark-600;
   }
 
-  .text-dark100_light500 {
-    @apply dark:text-dark-100 text-light-500 !important;
+  .background-light200_dark600 {
+    @apply bg-light-200 dark:bg-dark-600;
   }
 
-  .text-dark500_light100 {
-    @apply text-dark-100 dark:text-light-500 !important;
+  .background-light120_dark700 {
+    @apply bg-light-120 dark:bg-dark-700;
   }
 
-  .text-dark450_light850 {
-    @apply dark:text-dark-450 text-light-850 !important;
+  .text-light400_light200 {
+    @apply text-light-400 dark:text-light-200;
   }
 
-  .text-dark100_primary100 {
-    @apply text-dark-100 dark:text-primary-100;
+  .text-light500_light100 {
+    @apply text-light-500 dark:text-light-100;
   }
 
-  .light-border {
-    @apply border-light-500;
+  .text-light500_light200 {
+    @apply text-light-500 dark:text-light-200;
+  }
+
+  .text-light300_light500 {
+    @apply text-light-300 dark:text-light-500;
+  }
+
+  .text-dark900_light100 {
+    @apply text-dark-900 dark:text-light-100;
+  }
+
+  .text-dark900_light200 {
+    @apply text-dark-900 dark:text-light-200;
+  }
+
+  .text-dark700_light300 {
+    @apply text-dark-700 dark:text-light-300;
+  }
+
+  .text-dark700_light200 {
+    @apply text-dark-700 dark:text-light-200;
+  }
+
+  .text-dark700_light150 {
+    @apply text-dark-700 dark:text-light-150;
+  }
+
+  .text-dark600_light400 {
+    @apply text-dark-600 dark:text-light-400;
+  }
+
+  .text-dark600_light300 {
+    @apply text-dark-600 dark:text-light-300;
+  }
+
+  .text-dark600_light200 {
+    @apply text-dark-600 dark:text-light-200;
+  }
+
+  .text-dark600_light100 {
+    @apply text-dark-600 dark:text-light-100;
+  }
+
+  .text-dark600_light50 {
+    @apply text-dark-600 dark:text-light-50;
+  }
+
+  .border-light200_dark600 {
+    @apply border-light-200 dark:border-dark-600;
+  }
+
+  .border-light300_dark700 {
+    @apply border-light-300 dark:border-dark-700;
   }
 
   .h1-bold {
@@ -132,7 +184,7 @@
   }
 
   .placeholder {
-    @apply placeholder:text-light-500 dark:placeholder:text-dark-100;
+    @apply placeholder:text-light-300 dark:placeholder:text-dark-100;
   }
 
   .invert-colors {
@@ -174,134 +226,5 @@
 
   .scrollable::-webkit-scrollbar {
     display: none;
-  }
-
-  /* SWIPER */
-  .mySwiper {
-    position: relative; /* Đảm bảo swiper chứa các nút điều hướng */
-    width: 100%; /* Đảm bảo swiper chiếm toàn bộ chiều rộng */
-    height: auto; /* Chiều cao tự động */
-    overflow: hidden; /* Ẩn phần vượt ra ngoài */
-  }
-  .swiper-container {
-    position: relative; /* Đảm bảo các nút điều hướng được đặt chính xác */
-    width: 100%; /* Đảm bảo rằng swiper chiếm toàn bộ chiều rộng của phần tử chứa */
-    height: auto; /* Điều chỉnh chiều cao tùy theo nội dung bên trong */
-  }
-  /* Nút điều hướng Prev và Next */
-  .swiper-button-prev,
-  .swiper-button-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  /* Nút Prev nằm bên trái */
-  .swiper-button-prev {
-    left: 0;
-    right: auto;
-  }
-
-  /* Nút Next nằm bên phải */
-  .swiper-button-next {
-    right: 0;
-    left: auto;
-  }
-
-  .swiper-button-prev.cursor-not-allowed,
-  .swiper-button-next.cursor-not-allowed {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    flex-direction: row;
-    width: fit-content;
-  }
-
-  .swiper-slide img {
-    display: block;
-    object-fit: cover;
-    cursor: pointer;
-  }
-  .swiper-wrapper {
-    display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-  }
-
-  /* SWIPER PRODUCT DETAIL*/
-  .mySwiper1 {
-    position: relative; /* Đảm bảo swiper chứa các nút điều hướng */
-    width: 100%; /* Đảm bảo swiper chiếm toàn bộ chiều rộng */
-    height: 400px; /* Chiều cao tự động */
-    overflow: hidden; /* Ẩn phần vượt ra ngoài */
-  }
-  .swiper-container1 {
-    position: relative; /* Đảm bảo các nút điều hướng được đặt chính xác */
-    width: 100%; /* Đảm bảo rằng swiper chiếm toàn bộ chiều rộng của phần tử chứa */
-    height: 400px; /* Điều chỉnh chiều cao tùy theo nội dung bên trong */
-  }
-  /* Nút điều hướng Prev và Next */
-  .swiper-button-prev1,
-  .swiper-button-next1 {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  /* Nút Prev nằm bên trái */
-  .swiper-button-prev1 {
-    left: 0;
-    right: auto;
-  }
-
-  /* Nút Next nằm bên phải */
-  .swiper-button-next1 {
-    right: 0;
-    left: auto;
-  }
-
-  .swiper-slide1 {
-    text-align: center;
-    font-size: 18px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    flex-direction: column;
-    width: fit-content;
-    margin-right: 0;
-  }
-
-  .swiper-slide1 img {
-    display: block;
-    object-fit: cover;
-    cursor: pointer;
-    height: 320px;
-    width: 280px;
-  }
-  .swiper-wrapper1 {
-    display: flex;
-    align-items: center;
   }
 }

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Heart, History, Menu, ShoppingBag, X } from "lucide-react";
 import { useProduct } from "@/contexts/ProductContext";
 import Theme from "./Theme";
+import { navbarLinks } from "@/constants";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -12,15 +13,33 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { favorites, viewHistory } = useProduct();
 
+  const renderIcon = (value: string) => {
+    switch (value) {
+      case "home":
+        return null;
+      case "favourties":
+        return <Heart className="w-4 h-4" />;
+      case "history":
+        return <History className="w-4 h-4" />;
+      default:
+        return null;
+    }
+  };
+
+  const renderCount = (value: string) => {
+    if (value === "favourties") return ` (${favorites.length})`;
+    if (value === "history") return ` (${viewHistory.length})`;
+    return "";
+  };
   return (
     <>
       <div className="flex items-center justify-between h-16">
         <Link href="/" className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <ShoppingBag className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+              <ShoppingBag className="w-5 h-5 text-light-100" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-xl font-bold text-dark900_light100">
               EduMarket
             </h1>
           </div>
@@ -28,38 +47,23 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <button
-            onClick={() => router.push("/")}
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              pathname === "/"
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
-            }`}
-          >
-            Trang chủ
-          </button>
-          <button
-            onClick={() => router.push("/product/favourites")}
-            className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              pathname === "/product/favourites"
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
-            }`}
-          >
-            <Heart className="w-4 h-4" />
-            <span>Yêu thích ({favorites.length})</span>
-          </button>
-          <button
-            onClick={() => router.push("/product/history")}
-            className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              pathname === "/product/history"
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
-            }`}
-          >
-            <History className="w-4 h-4" />
-            <span>Lịch sử ({viewHistory.length})</span>
-          </button>
+          {navbarLinks.map((link) => (
+            <button
+              key={link.value}
+              onClick={() => router.push(link.route)}
+              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                pathname === link.route
+                  ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300"
+                  : "text-dark700_light300 hover:text-primary-600 hover:dark:text-primary-300"
+              }`}
+            >
+              {renderIcon(link.value)}
+              <span>
+                {link.label}
+                {renderCount(link.value)}
+              </span>
+            </button>
+          ))}
           <Theme />
         </nav>
 
@@ -68,7 +72,7 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+            className="md:hidden p-2 rounded-md text-dark700_light300 hover:text-primary-600 dark:hover:text-primary-300"
           >
             {mobileMenuOpen ? (
               <X className="w-6 h-6" />
@@ -81,49 +85,28 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-white dark:bg-gray-800 py-4">
+        <div className="md:hidden border-t background_light100_dark100 py-4">
           <div className="flex flex-col space-y-2">
-            <button
-              onClick={() => {
-                router.push("/");
-                setMobileMenuOpen(false);
-              }}
-              className={`text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                pathname === "/"
-                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                  : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
-              }`}
-            >
-              Trang chủ
-            </button>
-            <button
-              onClick={() => {
-                router.push("/product/favourites");
-                setMobileMenuOpen(false);
-              }}
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                pathname === "/product/favourites"
-                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                  : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
-              }`}
-            >
-              <Heart className="w-4 h-4" />
-              <span>Yêu thích ({favorites.length})</span>
-            </button>
-            <button
-              onClick={() => {
-                router.push("/product/history");
-                setMobileMenuOpen(false);
-              }}
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                pathname === "/product/history"
-                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                  : "text-gray-700 hover:text-blue-600 dark:text-gray-300 hover:dark:text-blue-400"
-              }`}
-            >
-              <History className="w-4 h-4" />
-              <span>Lịch sử ({viewHistory.length})</span>
-            </button>
+            {navbarLinks.map((link) => (
+              <button
+                key={link.value}
+                onClick={() => {
+                  router.push(link.route);
+                  setMobileMenuOpen(false);
+                }}
+                className={`flex items-center space-x-1 text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  pathname === link.route
+                    ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300"
+                    : "text-dark700_light300 hover:text-primary-600 hover:dark:text-primary-300"
+                }`}
+              >
+                {renderIcon(link.value)}
+                <span>
+                  {link.label}
+                  {renderCount(link.value)}
+                </span>
+              </button>
+            ))}
           </div>
         </div>
       )}

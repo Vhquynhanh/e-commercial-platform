@@ -48,10 +48,10 @@ export default function AISuggestions({ className = "" }) {
             <Sparkles className="w-6 h-6 text-purple-600 dark:text-purple-200" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-bold text-dark900_light100">
               Gợi ý AI cho bạn
             </h2>
-            <p className="text-gray-600 dark:text-gray-200 text-sm">
+            <p className="text-dark600_light200 text-sm">
               Dựa trên lịch sử xem và sở thích của bạn
             </p>
           </div>
@@ -61,7 +61,7 @@ export default function AISuggestions({ className = "" }) {
           <button
             onClick={handleRefresh}
             disabled={loading}
-            className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg border transition-colors disabled:opacity-50"
+            className="flex items-center space-x-2 px-4 py-2 background-light100_dark100 hover:background-light50_dark700 text-dark700_light300 rounded-lg border border-light200_dark600 transition-colors disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
             <span>Làm mới</span>
@@ -74,10 +74,10 @@ export default function AISuggestions({ className = "" }) {
         <div className="text-center py-8">
           <div className="mb-4">
             <Sparkles className="w-12 h-12 text-purple-400 mx-auto mb-3" />
-            <p className="text-gray-600 dark:text-slate-50 mb-4">
+            <p className="text-dark600_light50 mb-4">
               Khám phá những khoá học phù hợp với bạn nhất
             </p>
-            <p className="text-sm text-gray-500 dark:text-slate-50 mb-6">
+            <p className="text-sm text-light-500 dark:text-light-50 mb-6">
               AI sẽ phân tích sở thích và đề xuất khoá học tốt nhất
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function AISuggestions({ className = "" }) {
       {loading && (
         <div className="text-center py-8">
           <Loader2 className="w-8 h-8 text-purple-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-dark600_light300">
             AI đang phân tích để tìm khoá học phù hợp nhất...
           </p>
 
@@ -104,12 +104,12 @@ export default function AISuggestions({ className = "" }) {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="bg-white dark:bg-gray-700 rounded-xl p-4 animate-pulse"
+                className="background-light100_dark700 rounded-xl p-4 animate-pulse"
               >
-                <div className="h-48 bg-gray-200 dark:bg-gray-600 rounded-lg mb-4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-3/4 mb-2"></div>
-                <div className="h-3 bg-gray-200 dark:bg-gray-600 rounded w-1/2"></div>
+                <div className="h-48 background-light200_dark600 rounded-lg mb-4"></div>
+                <div className="h-4 background-light200_dark600 rounded mb-2"></div>
+                <div className="h-4 background-light200_dark600 rounded w-3/4 mb-2"></div>
+                <div className="h-3 background-light200_dark600 rounded w-1/2"></div>
               </div>
             ))}
           </div>
@@ -134,12 +134,12 @@ export default function AISuggestions({ className = "" }) {
       {suggestions.length > 0 && !loading && (
         <div>
           <div className="flex items-center justify-between mb-4">
-            <p className="text-gray-700 dark:text-gray-100">
+            <p className="text-dark700_light150">
               Tìm thấy{" "}
               <span className="font-semibold">{suggestions.length}</span> khoá
               học phù hợp
             </p>
-            <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center space-x-2 text-sm text-light-500 dark:text-light-400">
               <Sparkles className="w-4 h-4" />
               <span>Được đề xuất bởi AI</span>
             </div>

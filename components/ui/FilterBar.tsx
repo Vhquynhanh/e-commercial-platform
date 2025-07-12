@@ -53,19 +53,17 @@ export default function FilterBar({
 
   return (
     <div
-      className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border ${className}`}
+      className={`background-light100_dark100 rounded-lg shadow-sm border border-light300_dark700 ${className}`}
     >
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-gray-500 dark:text-gray-300" />
-            <h3 className="font-semibold text-gray-900 dark:text-white">
-              Bộ lọc
-            </h3>
+            <Filter className="w-5 h-5 text-light-500 dark:text-light-300" />
+            <h3 className="font-semibold text-dark900_light100">Bộ lọc</h3>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center space-x-1 text-blue-600 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-400"
+            className="lg:hidden flex items-center space-x-1 text-primary-600 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-400 text-dark900_light100"
           >
             <span>Mở rộng</span>
             <ChevronDown
@@ -83,13 +81,13 @@ export default function FilterBar({
         >
           {/* Price Range Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-dark900_light100 mb-2">
               Mức giá
             </label>
             <select
               value={filters.priceRange}
               onChange={(e) => handleFilterChange("priceRange", e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full p-2 border border-light300_dark700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 text-dark700_light300 background-light150_dark700"
             >
               {priceRanges.map((range) => (
                 <option key={range.value} value={range.value}>
@@ -101,13 +99,13 @@ export default function FilterBar({
 
           {/* Category Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-dark900_light100 mb-2">
               Danh mục
             </label>
             <select
               value={filters.category}
               onChange={(e) => handleFilterChange("category", e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full p-2 border border-light300_dark700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 background-light150_dark700 text-dark700_light300"
             >
               <option value="">Tất cả danh mục</option>
               {categories.map((category) => (
@@ -120,13 +118,13 @@ export default function FilterBar({
 
           {/* Level Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-dark900_light100 mb-2">
               Trình độ
             </label>
             <select
               value={filters.level}
               onChange={(e) => handleFilterChange("level", e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full p-2 border border-light300_dark700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 background-light150_dark700 text-dark700_light300"
             >
               {levels.map((level) => (
                 <option key={level.value} value={level.value}>
@@ -143,8 +141,8 @@ export default function FilterBar({
               disabled={!hasActiveFilters}
               className={`w-full px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                 hasActiveFilters
-                  ? "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 hover:dark:bg-gray-600"
-                  : "bg-gray-50 text-gray-400 cursor-not-allowed"
+                  ? "background-light150_dark700 text-dark700_light300 hover:background-light200_dark600"
+                  : "background-light50_dark700 text-dark600_light400 cursor-not-allowed"
               }`}
             >
               Xóa bộ lọc

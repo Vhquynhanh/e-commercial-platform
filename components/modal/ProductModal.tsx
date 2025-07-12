@@ -59,17 +59,17 @@ export default function ProductModal() {
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="background-light100_dark100 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-600 p-6 flex items-center justify-between rounded-t-2xl">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex-1 pr-4">
+        <div className="sticky top-0 background-light100_dark100 border-b border-light200_dark600 p-6 flex items-center justify-between rounded-t-2xl">
+          <h2 className="text-2xl font-bold text-dark900_light100 flex-1 pr-4">
             {product.name}
           </h2>
           <button
             onClick={handleCloseModal}
             className="p-2 rounded-lg transition-colors"
           >
-            <X className="w-6 h-6 text-gray-900 dark:text-white" />
+            <X className="w-6 h-6 text-dark900_light100" />
           </button>
         </div>
 
@@ -104,14 +104,14 @@ export default function ProductModal() {
               <div className="flex items-center space-x-4 mb-4">
                 <div className="flex items-center space-x-1">
                   <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  <span className="text-lg font-semibold text-dark900_light100">
                     {product.rating}
                   </span>
-                  <span className="text-gray-600 dark:text-gray-400">
+                  <span className="text-dark600_light400">
                     ({product.reviews} đánh giá)
                   </span>
                 </div>
-                <span className="text-blue-600 dark:text-blue-400 font-medium">
+                <span className="text-primary-600 dark:text-primary-400 font-medium">
                   {product.category}
                 </span>
               </div>
@@ -119,20 +119,20 @@ export default function ProductModal() {
               {/* Meta Info */}
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center space-x-2">
-                  <Users className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <Users className="w-5 h-5 text-light-500 dark:text-light-400" />
+                  <span className="text-dark700_light300">
                     {product.students.toLocaleString()} học viên
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Clock className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <Clock className="w-5 h-5 text-light-500 dark:text-light-400" />
+                  <span className="text-dark700_light300">
                     {product.duration}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <PlayCircle className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <PlayCircle className="w-5 h-5 text-light-500 dark:text-light-400" />
+                  <span className="text-dark700_light300">
                     Giảng viên: {product.instructor}
                   </span>
                 </div>
@@ -140,14 +140,14 @@ export default function ProductModal() {
 
               {/* Tags */}
               <div className="mb-6">
-                <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+                <h4 className="font-semibold mb-3 text-dark900_light100">
                   Chủ đề:
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {product.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full dark:bg-blue-600 dark:text-blue-200"
+                      className="px-3 py-1 bg-primary-100 text-primary-800 text-sm rounded-full dark:bg-primary-600 dark:text-primary-200"
                     >
                       {tag}
                     </span>
@@ -160,27 +160,27 @@ export default function ProductModal() {
             <div>
               {/* Description */}
               <div className="mb-6">
-                <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+                <h4 className="font-semibold mb-3 text-dark900_light100">
                   Mô tả khoá học:
                 </h4>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                <p className="text-dark700_light300 leading-relaxed mb-4">
                   {product.longDescription}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-dark600_light400">
                   {product.shortDescription}
                 </p>
               </div>
 
               {/* What you'll learn */}
               <div className="mb-6">
-                <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+                <h4 className="font-semibold mb-3 text-dark900_light100">
                   Bạn sẽ học được gì:
                 </h4>
                 <ul className="space-y-2">
                   {product.tags.map((tag, index) => (
                     <li key={index} className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <span className="text-gray-700 dark:text-gray-300">
+                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                      <span className="text-dark700_light300">
                         Thành thạo {tag}
                       </span>
                     </li>
@@ -192,7 +192,7 @@ export default function ProductModal() {
               <div className="border-t pt-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                    <span className="text-3xl font-bold text-primary-600 dark:text-primary-400">
                       {formatPrice(product.price)}
                     </span>
                   </div>
@@ -201,7 +201,7 @@ export default function ProductModal() {
                     className={`p-3 rounded-full transition-all duration-200 ${
                       isFavorite
                         ? "bg-red-500 text-white shadow-lg"
-                        : "bg-gray-100 text-gray-600 hover:bg-red-50 hover:text-red-500 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+                        : "background-light150_dark700 text-dark600_light100 hover:bg-red-50 hover:text-red-500 dark:hover:bg-dark-600"
                     }`}
                   >
                     <Heart
@@ -211,11 +211,11 @@ export default function ProductModal() {
                 </div>
 
                 <div className="space-y-3">
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2">
+                  <button className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2">
                     <ShoppingCart className="w-5 h-5" />
                     <span>Mua ngay</span>
                   </button>
-                  <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold transition-colors duration-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
+                  <button className="w-full background-light150_dark600 text-dark700_light200 py-3 px-6 rounded-lg font-semibold transition-colors duration-200 hover:bg-light-200 dark:hover:bg-light-500">
                     Thêm vào giỏ hàng
                   </button>
                 </div>
