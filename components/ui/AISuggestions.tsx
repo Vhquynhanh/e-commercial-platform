@@ -5,23 +5,7 @@ import { Sparkles, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
 import ProductCard from "../card/ProductCard";
 import { mockSuggestions } from "@/data/mockSuggestion";
 
-interface AISuggestionsProps {
-  onToggleFavorite: (productId: string) => void;
-  onViewDetail: (product: Product) => void;
-  onAddToHistory: (productId: string) => void;
-  favorites: string[];
-  viewHistory: string[];
-  className?: string;
-}
-
-export default function AISuggestions({
-  onToggleFavorite,
-  onViewDetail,
-  onAddToHistory,
-  favorites,
-  viewHistory,
-  className = ""
-}: AISuggestionsProps) {
+export default function AISuggestions({ className = "" }) {
   const [suggestions, setSuggestions] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +40,7 @@ export default function AISuggestions({
 
   return (
     <div
-      className={`bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-800 dark:to-blue-800 rounded-xl p-6 ${className}`}
+      className={`bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-800 dark:to-blue-800 rounded-xl p-6 ${className}`}
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">

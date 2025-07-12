@@ -28,7 +28,6 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Theme />
           <button
             onClick={() => router.push("/")}
             className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -61,26 +60,29 @@ const Navbar = () => {
             <History className="w-4 h-4" />
             <span>Lịch sử ({viewHistory.length})</span>
           </button>
+          <Theme />
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-        >
-          {mobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
-        </button>
+        <div className="md:hidden flex items-center">
+          <Theme className="mr-4" />
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t bg-white dark:bg-gray-800 py-4">
           <div className="flex flex-col space-y-2">
-            <Theme />
             <button
               onClick={() => {
                 router.push("/");

@@ -7,6 +7,7 @@ import ProductCard from "../card/ProductCard";
 import { Product, SearchFilters } from "@/types/product";
 import { useProduct } from "@/contexts/ProductContext";
 import ProductModal from "../modal/ProductModal";
+import Footer from "../shared/footer/Footer";
 
 const HomeForm = () => {
   const {
@@ -114,18 +115,8 @@ const HomeForm = () => {
         className="mb-8"
       />
 
-      {/* AI Suggestions */}
-      <AISuggestions
-        onToggleFavorite={handleToggleFavorite}
-        onViewDetail={handleViewDetail}
-        onAddToHistory={handleAddToHistory}
-        favorites={favorites}
-        viewHistory={viewHistory}
-        className="mb-8"
-      />
-
       {/* Products Grid */}
-      <div className="mb-8">
+      <div className="mb-12">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
             {filters.query
@@ -153,6 +144,9 @@ const HomeForm = () => {
           </div>
         )}
       </div>
+
+      {/* AI Suggestions */}
+      <AISuggestions />
 
       {/* Product Modal */}
       <ProductModal />

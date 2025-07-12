@@ -12,12 +12,13 @@ import {
 import Image from "next/image";
 import { themes } from "@/constants";
 import "@/styles/theme.css";
+import { cn } from "@/lib/utils";
 
-const Theme = () => {
+const Theme = ({ className }: { className?: string }) => {
   const { mode, setMode } = useTheme();
 
   return (
-    <Menubar className="relative border-none">
+    <Menubar className={cn("relative border-none", className)}>
       <MenubarMenu>
         <MenubarTrigger>
           {mode === "light" ? (
