@@ -1,14 +1,19 @@
 export const aiResponses = {
   greeting:
     "Xin chào! Tôi là AI assistant của EduCommerce. Tôi có thể giúp bạn tìm kiếm khóa học phù hợp. Bạn đang quan tâm đến lĩnh vực nào?",
+
   english:
-    "Tôi recommend khóa học 'Tiếng Anh Giao Tiếp Cùng Người Mỹ' cho bạn. Khóa học này có giáo viên bản ngữ, phương pháp học hiệu quả và đánh giá cao từ học viên.",
+    "Tôi recommend khóa học 'Complete English Speaking Course with Native Americans' cho bạn. Khóa học này có giáo viên bản ngữ, phương pháp học hiệu quả và đánh giá cao từ học viên.",
+
   programming:
-    "Dựa trên nhu cầu học lập trình, tôi suggest khóa 'Lập Trình React từ Cơ Bản đến Nâng Cao' hoặc 'Python Data Science'. Bạn muốn tập trung vào front-end hay data science?",
+    "Dựa trên nhu cầu học lập trình, tôi gợi ý 'React & Next.js Complete Developer Course' cho front-end, hoặc 'Python Data Science & Machine Learning' nếu bạn muốn đi theo hướng data science. Bạn muốn tập trung vào mảng nào?",
+
   design:
-    "Cho thiết kế, tôi recommend 'Thiết Kế UI/UX Chuyên Nghiệp' nếu bạn muốn học thiết kế giao diện, hoặc 'Photoshop Cơ Bản đến Nâng Cao' nếu tập trung vào chỉnh sửa ảnh.",
+    "Về thiết kế, bạn có thể bắt đầu với khóa 'Graphic Design Fundamentals' để nắm vững nền tảng. Khóa học rất phù hợp cho người mới và những ai muốn chuyển hướng sự nghiệp.",
+
   marketing:
-    "Khóa 'Digital Marketing Thực Chiến' rất phù hợp nếu bạn muốn học marketing online. Khóa học có nhiều case study thực tế và được đánh giá cao.",
+    "Tôi đề xuất 'Digital Marketing Mastery for Beginners' – một khóa học toàn diện về marketing online, bao gồm SEO, mạng xã hội, và quảng cáo trả phí. Phù hợp cho người mới bắt đầu hoặc chủ doanh nghiệp nhỏ.",
+
   default:
     "Tôi hiểu bạn đang tìm kiếm khóa học. Bạn có thể cho tôi biết cụ thể hơn về lĩnh vực mà bạn quan tâm không? Ví dụ: ngôn ngữ, lập trình, thiết kế, marketing..."
 };
