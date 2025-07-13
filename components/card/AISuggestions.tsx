@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { Product } from "@/types/product";
-import { Sparkles, RefreshCw, AlertCircle } from "lucide-react";
+import { Sparkles, RefreshCw } from "lucide-react";
 import ProductCard from "../card/ProductCard";
-import { mockSuggestions } from "@/data/mockSuggestion";
 import { Loader } from "../shared/loader/loader-ai";
 import ErrorDisplay from "../shared/error/error";
+import { fetchSuggestion } from "@/lib/api/fetchSuggestion";
 
 export default function AISuggestions({ className = "" }) {
   const [suggestions, setSuggestions] = useState<Product[]>([]);
@@ -14,28 +14,35 @@ export default function AISuggestions({ className = "" }) {
   const [hasRequested, setHasRequested] = useState(false);
 
   // Mock AI suggestions API call
+
   const fetchSuggestions = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // Simulate API call delay
+      // Giả lập độ trễ khi gọi API (ví dụ 1500ms)
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // Simulate random success/failure for demo
+      // Giả lập tỷ lệ thành công/không thành công của API (80% thành công, 20% thất bại)
       if (Math.random() > 0.2) {
-        setSuggestions(mockSuggestions);
-        setHasRequested(true);
+        try {
+          const data = await fetchSuggestion();
+          setSuggestions(data);
+          setHasRequested(true);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : "Đã xảy ra lỗi");
+        } finally {
+          setLoading(false);
+        }
       } else {
         throw new Error("Không thể lấy gợi ý lúc này");
       }
     } catch (err) {
+      // Xử lý lỗi tổng quát
       setError(err instanceof Error ? err.message : "Đã xảy ra lỗi");
-    } finally {
       setLoading(false);
     }
   };
-
   const handleRefresh = () => {
     fetchSuggestions();
   };

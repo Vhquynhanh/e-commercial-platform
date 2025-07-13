@@ -1,10 +1,16 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
-import { mockUser } from "@/data/mockUser";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect
+} from "react";
 import { Product } from "@/types/product";
-import { mockProducts } from "@/data/mockProduct";
 import { useToast } from "./ToastContext";
+import { fetchProduct } from "@/lib/api/fetchProduct";
+import { fetchUser } from "@/lib/api/fetchUser";
 
 /* Kiểu dữ liệu cho context */
 interface ProductContextType {
@@ -24,14 +30,26 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 /* Provider bọc quanh toàn bộ app (hoặc nhóm route) */
 export function ProductProvider({ children }: { children: ReactNode }) {
-  const [products] = useState<Product[]>(mockProducts);
-  const [favorites, setFavorites] = useState<string[]>(mockUser.favorites);
-  const [viewHistory, setViewHistory] = useState<string[]>(
-    mockUser.viewHistory
-  );
+  const [products, setProducts] = useState<Product[]>([]); // Lưu trữ sản phẩm từ API
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [viewHistory, setViewHistory] = useState<string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
   const { showToastMessage } = useToast();
+
+  /* Fetch products - user from API */
+  useEffect(() => {
+    const fetchData = async () => {
+      const [productsData, userData] = await Promise.all([
+        fetchProduct(),
+        fetchUser()
+      ]);
+      setProducts(productsData);
+      setFavorites(userData.favorites);
+      setViewHistory(userData.viewHistory);
+    };
+    fetchData();
+  }, []);
 
   /* Thêm / xoá yêu thích */
   const handleToggleFavorite = (productId: string) => {
@@ -58,7 +76,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const handleAddToHistory = (productId: string) => {
     setViewHistory((prev) => {
       const newHistory = [productId, ...prev.filter((id) => id !== productId)];
-      return newHistory.slice(0, 10); // Keep only last 10 items
+      return newHistory.slice(0, 10); // Giới hạn tối đa 10 mục
     });
   };
 
@@ -72,6 +90,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
   return (
     <ProductContext.Provider
       value={{
@@ -94,6 +113,6 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 /* Hook tiện dụng */
 export function useProduct() {
   const ctx = useContext(ProductContext);
-  if (!ctx) throw new Error("useProduct must be dùng trong ProductProvider");
+  if (!ctx) throw new Error("useProduct must be used within ProductProvider");
   return ctx;
 }

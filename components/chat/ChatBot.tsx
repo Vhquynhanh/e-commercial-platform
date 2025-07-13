@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
-import { aiResponses } from "@/data/mockAIResponse";
+import { aiResponses } from "@/lib/data/aiResponses";
 
 const suggestionTopics = [
   { label: "Tiếng Anh", key: "english" },

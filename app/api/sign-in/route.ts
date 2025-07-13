@@ -9,14 +9,14 @@ export async function POST(request: NextRequest) {
     const { loginInfo, password } = await request.json();
     const result = await signInAction(loginInfo, password);
 
-    if (!result.success) {
+    if (!result) {
       return NextResponse.json(
-        { error: result.error },
-        { status: result.status }
+        { error: "Invalid login credentials" },
+        { status: 401 }
       );
     }
 
-    return NextResponse.json(result.user);
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error("Sign in error:", error);
     return NextResponse.json(
