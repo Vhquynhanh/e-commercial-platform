@@ -5,12 +5,13 @@ import {
   useContext,
   useState,
   ReactNode,
-  useEffect
+  useEffect,
+  useCallback
 } from "react";
 import { Product } from "@/types/product";
-import { useToast } from "./ToastContext";
 import { fetchProduct } from "@/lib/api/fetchProduct";
 import { fetchUser } from "@/lib/api/fetchUser";
+import { toast } from "sonner";
 
 /* Kiểu dữ liệu cho context */
 interface ProductContextType {
@@ -30,12 +31,11 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 /* Provider bọc quanh toàn bộ app (hoặc nhóm route) */
 export function ProductProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState<Product[]>([]); // Lưu trữ sản phẩm từ API
+  const [products, setProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [viewHistory, setViewHistory] = useState<string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const { showToastMessage } = useToast();
 
   /* Fetch products - user from API */
   useEffect(() => {
@@ -51,45 +51,41 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     fetchData();
   }, []);
 
+  // Handle pending toast messages
+
   /* Thêm / xoá yêu thích */
-  const handleToggleFavorite = (productId: string) => {
-    setFavorites((prev) => {
-      const newFavorites = prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId];
+  const handleToggleFavorite = useCallback(
+    (productId: string) => {
+      setFavorites((prev) => {
+        const isAdding = !prev.includes(productId);
+        const newFavorites = isAdding
+          ? [...prev, productId]
+          : prev.filter((id) => id !== productId);
 
-      // Show toast
-      const isAdding = !prev.includes(productId);
-      const product = products.find((p) => p.id === productId);
-      showToastMessage(
-        `${isAdding ? "Đã thêm" : "Đã xoá"} "${product?.name ?? "sản phẩm"}" ${
-          isAdding ? "vào" : "khỏi"
-        } yêu thích`,
-        "success"
-      );
-
-      return newFavorites;
-    });
-  };
+        return newFavorites;
+      });
+    },
+    [products]
+  );
 
   /* Lưu lịch sử (giữ tối đa 10 mục) */
-  const handleAddToHistory = (productId: string) => {
+  const handleAddToHistory = useCallback((productId: string) => {
     setViewHistory((prev) => {
       const newHistory = [productId, ...prev.filter((id) => id !== productId)];
-      return newHistory.slice(0, 10); // Giới hạn tối đa 10 mục
+      return newHistory.slice(0, 10);
     });
-  };
+  }, []);
 
   // Handle view detail
-  const handleViewDetail = (product: Product) => {
+  const handleViewDetail = useCallback((product: Product) => {
     setSelectedProduct(product);
     setShowModal(true);
-  };
+  }, []);
 
   // Handle close modal
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
-  };
+  }, []);
 
   return (
     <ProductContext.Provider

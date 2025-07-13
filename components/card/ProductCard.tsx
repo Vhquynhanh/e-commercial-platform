@@ -4,6 +4,8 @@ import { Product } from "@/types/product";
 import { Heart, Star, Users, Clock, Eye } from "lucide-react";
 import { formatPrice } from "@/lib/util";
 import { useProduct } from "@/contexts/ProductContext";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   product: Product;
@@ -14,6 +16,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: { product: Product }) {
+  const router = useRouter();
   const {
     favorites,
     handleToggleFavorite,
@@ -34,8 +37,26 @@ export default function ProductCard({ product }: { product: Product }) {
 
   const onToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (handleToggleFavorite) {
-      handleToggleFavorite(product.id);
+    const isCurrentlyFavorite = favorites.includes(product.id);
+
+    handleToggleFavorite(product.id);
+
+    if (!isCurrentlyFavorite) {
+      toast.success(`Đã thêm '${product.name}' vào danh sách yêu thích`, {
+        action: {
+          label: "Xem",
+          onClick: () => router.push("/product/favourites")
+        },
+        duration: 3000
+      });
+    } else {
+      toast(`Đã xoá '${product.name}' xoá khỏi yêu thích`, {
+        action: {
+          label: "Hoàn tác",
+          onClick: () => handleToggleFavorite(product.id)
+        },
+        duration: 3000
+      });
     }
   };
 

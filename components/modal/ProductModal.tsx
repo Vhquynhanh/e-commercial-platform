@@ -1,6 +1,5 @@
 "use client";
-import { useEffect } from "react";
-import { Product } from "@/types/product";
+import { useEffect, useState } from "react";
 import {
   X,
   Star,
@@ -12,8 +11,13 @@ import {
 } from "lucide-react";
 import { useProduct } from "@/contexts/ProductContext";
 import { formatPrice } from "@/lib/util";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ProductModal() {
+  const router = useRouter();
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
   const {
     selectedProduct,
     showModal,
@@ -43,8 +47,26 @@ export default function ProductModal() {
 
   const onToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (handleToggleFavorite) {
-      handleToggleFavorite(product.id);
+    const isCurrentlyFavorite = favorites.includes(product.id);
+
+    handleToggleFavorite(product.id);
+
+    if (!isCurrentlyFavorite) {
+      toast.success(`Đã thêm '${product.name}' vào danh sách yêu thích`, {
+        action: {
+          label: "Xem",
+          onClick: () => router.push("/product/favourites")
+        },
+        duration: 3000
+      });
+    } else {
+      toast(`Đã xoá '${product.name}' xoá khỏi yêu thích`, {
+        action: {
+          label: "Hoàn tác",
+          onClick: () => handleToggleFavorite(product.id)
+        },
+        duration: 3000
+      });
     }
   };
 
@@ -54,6 +76,53 @@ export default function ProductModal() {
     }
   };
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (isAddedToCart) {
+      // Nếu đã thêm sản phẩm vào giỏ, hiển thị cảnh báo
+      toast.warning(`Sản phẩm "${product.name}" đã có trong giỏ hàng`, {
+        action: {
+          label: "Xem giỏ",
+          onClick: () => {
+            handleCloseModal();
+            router.push("/");
+          }
+        },
+        duration: 3000
+      });
+    } else {
+      // Nếu chưa thêm sản phẩm vào giỏ, thêm vào và hiển thị thông báo
+      setIsAddedToCart(true);
+
+      toast.success(`Đã thêm "${product.name}" vào giỏ hàng`, {
+        action: {
+          label: "Xem giỏ",
+          onClick: () => {
+            handleCloseModal();
+            router.push("/");
+          }
+        },
+        duration: 3000
+      });
+    }
+  };
+
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    toast.warning(`Bạn cần có tài khoản để thực hiện thao tác này`, {
+      action: {
+        label: "Đăng nhập",
+        onClick: () => {
+          handleCloseModal();
+          router.push("/sign-in");
+        }
+      },
+      duration: 3000
+    });
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
@@ -61,7 +130,7 @@ export default function ProductModal() {
     >
       <div className="background-light100_dark100 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 background-light100_dark100 border-b border-light200_dark600 p-6 flex items-center justify-between rounded-t-2xl">
+        <div className="sticky top-0 background-light100_dark100 border-b border-light200_dark600 p-6 flex items-center justify-between rounded-t-2xl z-50">
           <h2 className="text-2xl font-bold text-dark900_light100 flex-1 pr-4">
             {product.name}
           </h2>
@@ -211,11 +280,17 @@ export default function ProductModal() {
                 </div>
 
                 <div className="space-y-3">
-                  <button className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2">
+                  <button
+                    className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2"
+                    onClick={handleBuyNow}
+                  >
                     <ShoppingCart className="w-5 h-5" />
                     <span>Mua ngay</span>
                   </button>
-                  <button className="w-full background-light150_dark600 text-dark700_light200 py-3 px-6 rounded-lg font-semibold transition-colors duration-200 hover:bg-light-200 dark:hover:bg-light-500">
+                  <button
+                    className="w-full background-light150_dark600 text-dark700_light200 py-3 px-6 rounded-lg font-semibold transition-colors duration-200 hover:bg-light-200 dark:hover:bg-light-500"
+                    onClick={handleAddToCart}
+                  >
                     Thêm vào giỏ hàng
                   </button>
                 </div>
