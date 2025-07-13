@@ -14,6 +14,10 @@ export interface Product {
   level: "Beginner" | "Intermediate" | "Advanced";
   tags: string[];
   createdAt: string;
+  isPopular?: boolean;
+  isBestseller?: boolean;
+  suggestionReason?: string;
+  matchScore?: number;
 }
 
 export type PriceRangeValue = "all" | "under-500k" | "500k-1m" | "over-1m";
@@ -23,4 +27,12 @@ export interface SearchFilters {
   priceRange: PriceRangeValue;
   category: string[];
   level: string[];
+}
+
+export interface UserBehavior {
+  favorites: Product[];
+  viewHistory: Product[];
+  searchHistory: string[];
+  completedCourses: Product[];
+  purchasedCourses: Product[];
 }

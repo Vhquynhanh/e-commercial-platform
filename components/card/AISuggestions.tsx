@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
 import { Product } from "@/types/product";
-import { Sparkles, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
+import { Sparkles, RefreshCw, AlertCircle } from "lucide-react";
 import ProductCard from "../card/ProductCard";
 import { mockSuggestions } from "@/data/mockSuggestion";
+import { Loader } from "../shared/loader/loader-ai";
+import ErrorDisplay from "../shared/error/error";
 
 export default function AISuggestions({ className = "" }) {
   const [suggestions, setSuggestions] = useState<Product[]>([]);
@@ -92,43 +94,10 @@ export default function AISuggestions({ className = "" }) {
       )}
 
       {/* Loading State */}
-      {loading && (
-        <div className="text-center py-8">
-          <Loader2 className="w-8 h-8 text-purple-600 animate-spin mx-auto mb-4" />
-          <p className="text-dark600_light300">
-            AI đang phân tích để tìm khoá học phù hợp nhất...
-          </p>
-
-          {/* Loading Skeleton */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="background-light100_dark700 rounded-xl p-4 animate-pulse"
-              >
-                <div className="h-48 background-light200_dark600 rounded-lg mb-4"></div>
-                <div className="h-4 background-light200_dark600 rounded mb-2"></div>
-                <div className="h-4 background-light200_dark600 rounded w-3/4 mb-2"></div>
-                <div className="h-3 background-light200_dark600 rounded w-1/2"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {loading && <Loader />}
 
       {/* Error State */}
-      {error && (
-        <div className="text-center py-8">
-          <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
-          <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
-          <button
-            onClick={fetchSuggestions}
-            className="bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-          >
-            Thử lại
-          </button>
-        </div>
-      )}
+      {error && <ErrorDisplay error={error} onRetry={fetchSuggestions} />}
 
       {/* Suggestions Results */}
       {suggestions.length > 0 && !loading && (

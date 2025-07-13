@@ -1,9 +1,10 @@
 "use client";
 import { PriceRangeValue, SearchFilters } from "@/types/product";
 import { Filter, ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react"; // nếu bạn export type này
-import { Option, SelectInput } from "./select";
+import { useMemo, useState } from "react";
+import { Option, SelectInput } from "../../ui/select";
 import { normalizeMultiSelectFilter } from "@/lib/util/filter";
+import { levelOptions, priceRanges } from "@/constants/filter";
 
 interface FilterBarProps {
   filters: SearchFilters;
@@ -19,20 +20,6 @@ export default function FilterBar({
   className = ""
 }: FilterBarProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const priceRanges: Option<PriceRangeValue>[] = [
-    { value: "all", label: "Tất cả mức giá" },
-    { value: "under-500k", label: "Dưới 500.000đ" },
-    { value: "500k-1m", label: "500.000đ - 1.000.000đ" },
-    { value: "over-1m", label: "Trên 1.000.000đ" }
-  ];
-
-  const levels: Option<string>[] = [
-    { value: "", label: "Tất cả trình độ" },
-    { value: "Beginner", label: "Cơ bản" },
-    { value: "Intermediate", label: "Trung cấp" },
-    { value: "Advanced", label: "Nâng cao" }
-  ];
 
   const categoryOptions: Option<string>[] = useMemo(
     () => [
@@ -130,7 +117,7 @@ export default function FilterBar({
             id="level"
             label="Trình độ"
             placeholder="Chọn trình độ"
-            options={levels}
+            options={levelOptions}
             value={filters.level} // string[]
             isMulti
             showCheckbox

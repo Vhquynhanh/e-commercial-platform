@@ -1,12 +1,13 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import SearchBar from "../ui/SearchBar";
-import FilterBar from "../ui/FilterBar";
-import AISuggestions from "../ui/AISuggestions";
+import SearchBar from "../shared/search/SearchBar";
+import FilterBar from "../shared/filter/FilterBar";
 import ProductCard from "../card/ProductCard";
-import { Product, SearchFilters } from "@/types/product";
+import { Product, SearchFilters, UserBehavior } from "@/types/product";
 import { useProduct } from "@/contexts/ProductContext";
 import ProductModal from "../modal/ProductModal";
+import AISuggestions from "../card/AISuggestions";
+import ChatBot from "../chat/ChatBot";
 
 const HomeForm = () => {
   const { products } = useProduct();
@@ -140,6 +141,9 @@ const HomeForm = () => {
 
       {/* Product Modal */}
       <ProductModal />
+
+      {/* ChatBot AI */}
+      <ChatBot />
     </>
   );
 };
