@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import { mockUser } from "@/data/mockUser";
 import { Product } from "@/types/product";
 import { mockProducts } from "@/data/mockProduct";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "./ToastContext";
 
 /* Kiểu dữ liệu cho context */
 interface ProductContextType {
@@ -31,6 +31,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   );
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const { showToastMessage } = useToast();
 
   /* Thêm / xoá yêu thích */
   const handleToggleFavorite = (productId: string) => {
@@ -42,13 +43,12 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       // Show toast
       const isAdding = !prev.includes(productId);
       const product = products.find((p) => p.id === productId);
-      toast({
-        description: isAdding
-          ? `Đã thêm "${product?.name}" vào danh sách yêu thích`
-          : `Đã xóa "${product?.name}" khỏi danh sách yêu thích`,
-        className:
-          "px-6 py-3 shadow-lg rounded text-white max-w-sm bg-green-500"
-      });
+      showToastMessage(
+        `${isAdding ? "Đã thêm" : "Đã xoá"} "${product?.name ?? "sản phẩm"}" ${
+          isAdding ? "vào" : "khỏi"
+        } yêu thích`,
+        "success"
+      );
 
       return newFavorites;
     });

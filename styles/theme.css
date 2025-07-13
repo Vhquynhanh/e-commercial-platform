@@ -35,6 +35,10 @@
     @apply bg-light-150 dark:bg-dark-600;
   }
 
+  .background-light150_dark800 {
+    @apply bg-light-150 dark:bg-dark-800;
+  }
+
   .background-light200_dark600 {
     @apply bg-light-200 dark:bg-dark-600;
   }

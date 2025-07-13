@@ -32,6 +32,7 @@ module.exports = {
           100: "#1F2937", // gray-800 (dark background)
           600: "#4b5563", // gray-600
           700: "#374151", // gray-700
+          800: "#1A1F26",
           900: "#111827" // dark base background (nếu cần)
         },
         light: {

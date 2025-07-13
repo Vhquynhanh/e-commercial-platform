@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Product } from "@/types/product";
 import { Heart, Star, Users, Clock, Eye } from "lucide-react";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/util";
 import { useProduct } from "@/contexts/ProductContext";
 
 interface ProductCardProps {

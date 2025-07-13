@@ -11,7 +11,7 @@ import {
   PlayCircle
 } from "lucide-react";
 import { useProduct } from "@/contexts/ProductContext";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/util";
 
 export default function ProductModal() {
   const {

@@ -7,15 +7,14 @@ import ProductCard from "../card/ProductCard";
 import { Product, SearchFilters } from "@/types/product";
 import { useProduct } from "@/contexts/ProductContext";
 import ProductModal from "../modal/ProductModal";
-import Footer from "../shared/footer/Footer";
 
 const HomeForm = () => {
   const { products } = useProduct();
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
     priceRange: "all",
-    category: "",
-    level: ""
+    category: [],
+    level: []
   });
 
   // Get unique categories
@@ -61,15 +60,13 @@ const HomeForm = () => {
     }
 
     // Category filter
-    if (filters.category) {
-      filtered = filtered.filter(
-        (product) => product.category === filters.category
-      );
+    if (filters.category.length > 0) {
+      filtered = filtered.filter((p) => filters.category.includes(p.category));
     }
 
     // Level filter
-    if (filters.level) {
-      filtered = filtered.filter((product) => product.level === filters.level);
+    if (filters.level.length > 0) {
+      filtered = filtered.filter((p) => filters.level.includes(p.level));
     }
 
     return filtered;

@@ -1,7 +1,9 @@
 "use client";
-import { SearchFilters } from "@/types/product";
+import { PriceRangeValue, SearchFilters } from "@/types/product";
 import { Filter, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react"; // nếu bạn export type này
+import { Option, SelectInput } from "./select";
+import { normalizeMultiSelectFilter } from "@/lib/util/filter";
 
 interface FilterBarProps {
   filters: SearchFilters;
@@ -18,21 +20,32 @@ export default function FilterBar({
 }: FilterBarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const priceRanges = [
+  const priceRanges: Option<PriceRangeValue>[] = [
     { value: "all", label: "Tất cả mức giá" },
     { value: "under-500k", label: "Dưới 500.000đ" },
     { value: "500k-1m", label: "500.000đ - 1.000.000đ" },
     { value: "over-1m", label: "Trên 1.000.000đ" }
   ];
 
-  const levels = [
+  const levels: Option<string>[] = [
     { value: "", label: "Tất cả trình độ" },
     { value: "Beginner", label: "Cơ bản" },
     { value: "Intermediate", label: "Trung cấp" },
     { value: "Advanced", label: "Nâng cao" }
   ];
 
-  const handleFilterChange = (key: keyof SearchFilters, value: string) => {
+  const categoryOptions: Option<string>[] = useMemo(
+    () => [
+      { value: "", label: "Tất cả danh mục" },
+      ...categories.map((c) => ({ value: c, label: c }))
+    ],
+    [categories]
+  );
+
+  const handleFilterChange = <T extends keyof SearchFilters>(
+    key: T,
+    value: SearchFilters[T]
+  ) => {
     onFiltersChange({
       ...filters,
       [key]: value
@@ -43,13 +56,15 @@ export default function FilterBar({
     onFiltersChange({
       query: filters.query,
       priceRange: "all",
-      category: "",
-      level: ""
+      category: [],
+      level: []
     });
   };
 
   const hasActiveFilters =
-    filters.priceRange !== "all" || filters.category || filters.level;
+    filters.priceRange !== "all" ||
+    filters.category.length > 0 ||
+    filters.level.length > 0;
 
   return (
     <div
@@ -79,62 +94,55 @@ export default function FilterBar({
             isOpen ? "block" : "hidden lg:grid"
           }`}
         >
-          {/* Price Range Filter */}
-          <div>
-            <label className="block text-sm font-medium text-dark900_light100 mb-2">
-              Mức giá
-            </label>
-            <select
-              value={filters.priceRange}
-              onChange={(e) => handleFilterChange("priceRange", e.target.value)}
-              className="w-full p-2 border border-light300_dark700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 text-dark700_light300 background-light150_dark700"
-            >
-              {priceRanges.map((range) => (
-                <option key={range.value} value={range.value}>
-                  {range.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SelectInput<PriceRangeValue>
+            id="priceRange"
+            label="Mức giá"
+            options={priceRanges}
+            value={filters.priceRange}
+            onChange={(opt) => {
+              // opt có thể là null hoặc Option<PriceRangeValue>
+              const option = Array.isArray(opt) ? opt[0] : opt; // đảm bảo không phải mảng
+              handleFilterChange("priceRange", option ? option.value : "all");
+            }}
+            fullWidth
+            filterable
+          />
 
-          {/* Category Filter */}
-          <div>
-            <label className="block text-sm font-medium text-dark900_light100 mb-2">
-              Danh mục
-            </label>
-            <select
-              value={filters.category}
-              onChange={(e) => handleFilterChange("category", e.target.value)}
-              className="w-full p-2 border border-light300_dark700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 background-light150_dark700 text-dark700_light300"
-            >
-              <option value="">Tất cả danh mục</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Danh mục */}
+          <SelectInput<string>
+            id="category"
+            label="Danh mục"
+            placeholder="Chọn danh mục"
+            options={categoryOptions}
+            value={filters.category}
+            isMulti
+            showCheckbox
+            filterable
+            fullWidth
+            onChange={(opts) => {
+              const values = normalizeMultiSelectFilter(opts);
+              handleFilterChange("category", values);
+            }}
+          />
 
-          {/* Level Filter */}
-          <div>
-            <label className="block text-sm font-medium text-dark900_light100 mb-2">
-              Trình độ
-            </label>
-            <select
-              value={filters.level}
-              onChange={(e) => handleFilterChange("level", e.target.value)}
-              className="w-full p-2 border border-light300_dark700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 background-light150_dark700 text-dark700_light300"
-            >
-              {levels.map((level) => (
-                <option key={level.value} value={level.value}>
-                  {level.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Trình độ */}
+          <SelectInput<string>
+            id="level"
+            label="Trình độ"
+            placeholder="Chọn trình độ"
+            options={levels}
+            value={filters.level} // string[]
+            isMulti
+            showCheckbox
+            onChange={(opts) => {
+              const values = normalizeMultiSelectFilter(opts);
+              handleFilterChange("level", values);
+            }}
+            fullWidth
+            filterable
+          />
 
-          {/* Clear Filters */}
+          {/* Nút Xoá bộ lọc */}
           <div className="flex items-end">
             <button
               onClick={clearFilters}

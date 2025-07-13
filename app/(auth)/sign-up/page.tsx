@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { TextInput } from "@/components/ui/textInput";
+import { TextInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export default function SignupPage() {
