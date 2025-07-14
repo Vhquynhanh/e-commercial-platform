@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import FavoriteProductForm from "@/components/form/FavoriteProductForm";
 
 export default async function FavoriteProductPage() {

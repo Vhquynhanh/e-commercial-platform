@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import HomeForm from "@/components/form/HomeForm";
 
 export default async function HomePage() {

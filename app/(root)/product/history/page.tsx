@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import HistoryProductForm from "@/components/form/HistoryProductForm";
 export default async function HistoryProductPage() {
   // const session = await auth();
