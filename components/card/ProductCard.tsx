@@ -7,14 +7,6 @@ import { useProduct } from "@/contexts/ProductContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-interface ProductCardProps {
-  product: Product;
-  isFavorite?: boolean;
-  onToggleFavorite?: (productId: string) => void;
-  onViewDetail?: (product: Product) => void;
-  onAddToHistory?: (productId: string) => void;
-}
-
 export default function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const {

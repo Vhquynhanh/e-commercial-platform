@@ -11,13 +11,12 @@ import {
 import { Product } from "@/types/product";
 import { fetchProduct } from "@/lib/api/fetchProduct";
 import { fetchUser } from "@/lib/api/fetchUser";
-import { toast } from "sonner";
 
 /* Kiểu dữ liệu cho context */
 interface ProductContextType {
   products: Product[];
   favorites: string[];
-  viewHistory: string[];
+  viewHistory: { productId: string; viewCount: number }[];
   selectedProduct: Product | null;
   showModal: boolean;
   isLoading: boolean;
@@ -34,7 +33,9 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 export function ProductProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [viewHistory, setViewHistory] = useState<string[]>([]);
+  const [viewHistory, setViewHistory] = useState<
+    { productId: string; viewCount: number }[]
+  >([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,8 +55,6 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     fetchData();
   }, []);
 
-  // Handle pending toast messages
-
   /* Thêm / xoá yêu thích */
   const handleToggleFavorite = useCallback(
     (productId: string) => {
@@ -72,12 +71,30 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   );
 
   /* Lưu lịch sử (giữ tối đa 10 mục) */
-  const handleAddToHistory = useCallback((productId: string) => {
-    setViewHistory((prev) => {
-      const newHistory = [productId, ...prev.filter((id) => id !== productId)];
-      return newHistory.slice(0, 10);
-    });
-  }, []);
+  const handleAddToHistory = useCallback(
+    (productId: string) => {
+      setViewHistory((prev) => {
+        // Kiểm tra xem sản phẩm đã có trong lịch sử xem chưa
+        const existingProduct = prev.find(
+          (item) => item.productId === productId
+        );
+
+        if (existingProduct) {
+          // Nếu sản phẩm đã có, tăng số lần xem
+          return prev.map((item) =>
+            item.productId === productId
+              ? { ...item, viewCount: item.viewCount + 1 }
+              : item
+          );
+        } else {
+          // Nếu sản phẩm chưa có trong lịch sử xem, thêm mới vào lịch sử
+          const newHistory = [{ productId, viewCount: 1 }, ...prev];
+          return newHistory.slice(0, 10); // Giới hạn số lượng lịch sử xem (10 sản phẩm)
+        }
+      });
+    },
+    [products]
+  );
 
   // Handle view detail
   const handleViewDetail = useCallback((product: Product) => {

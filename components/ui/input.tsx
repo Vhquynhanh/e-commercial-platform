@@ -37,6 +37,7 @@ export interface TextInputProps
   descriptionClassName?: string;
   errorClassName?: string;
   iconClassName?: string;
+  iconOnClick?: React.MouseEventHandler<HTMLElement>; // Thêm thuộc tính onClick cho icon
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
@@ -56,6 +57,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       descriptionClassName,
       errorClassName,
       iconClassName,
+      iconOnClick, // Nhận và sử dụng onClick cho icon
       ...props
     },
     ref
@@ -92,6 +94,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                 "absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground",
                 iconClassName
               )}
+              onClick={iconOnClick} // Xử lý sự kiện onClick của icon
             >
               {icon}
             </div>
@@ -112,6 +115,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                 "absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground",
                 iconClassName
               )}
+              onClick={iconOnClick}
             >
               {icon}
             </div>

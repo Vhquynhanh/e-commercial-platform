@@ -14,7 +14,7 @@ const HistoryProductForm = () => {
   // Get history products
   const historyProducts = useMemo(() => {
     return viewHistory
-      .map((id) => products.find((p) => p.id === id))
+      .map((id) => products.find((p) => p.id === id.productId))
       .filter(Boolean) as Product[];
   }, [products, viewHistory]);
 

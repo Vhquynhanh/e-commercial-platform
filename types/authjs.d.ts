@@ -8,7 +8,7 @@ declare module "next-auth" {
       email?: string | null;
       image?: string | null;
       favorites: string[];
-      viewHistory: string[];
+      viewHistory: { productId: string; viewCount: number }[];
     };
   }
 
@@ -18,7 +18,7 @@ declare module "next-auth" {
     email?: string | null;
     image?: string | null;
     favorites: string[];
-    viewHistory: string[];
+    viewHistory: { productId: string; viewCount: number }[];
   }
 }
 

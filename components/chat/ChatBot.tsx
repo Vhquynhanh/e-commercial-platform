@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
-import { aiResponses } from "@/lib/data/aiResponses";
+import { TextInput } from "../ui/input";
+import { fetchAIResponse } from "@/lib/api/fetchAIResponse";
 
 const suggestionTopics = [
   { label: "Tiếng Anh", key: "english" },
@@ -20,10 +21,26 @@ const ChatBot = () => {
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const [aiResponses, setAiResponses] = useState<AIResponses | null>(null);
+  const chatBoxRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Gọi API để lấy dữ liệu phản hồi từ AI khi chatbot được hiển thị
+    if (showChatbot) {
+      fetchAIResponse()
+        .then((data) => {
+          setAiResponses(data);
+        })
+        .catch((err) => {
+          console.error("Error fetching AI responses:", err);
+        });
+    }
+  }, [showChatbot]);
 
   const handleSendMessage = () => {
     const input = chatInput.trim();
     if (!input) return;
+    if (!aiResponses) return;
 
     setChatMessages((prev) => [...prev, { type: "user", content: input }]);
 
@@ -32,6 +49,14 @@ const ChatBot = () => {
 
     if (content.includes("xin chào") || content.includes("hello")) {
       aiResponse = aiResponses.greeting;
+    } else if (content.includes("cảm ơn") || content.includes("thank")) {
+      aiResponse = aiResponses.thanks;
+    } else if (
+      content.includes("tạm biệt") ||
+      content.includes("bye") ||
+      content.includes("hẹn gặp lại")
+    ) {
+      aiResponse = aiResponses.bye;
     } else if (content.includes("tiếng anh") || content.includes("english")) {
       aiResponse = aiResponses.english;
     } else if (
@@ -53,6 +78,7 @@ const ChatBot = () => {
   };
 
   const handleSelectTopic = (label: string, key: string) => {
+    if (!aiResponses) return;
     setSelectedTopic(key);
     setChatMessages([
       { type: "user", content: label },
@@ -67,6 +93,16 @@ const ChatBot = () => {
       ]);
     }
   }, [showChatbot, selectedTopic, chatMessages.length]);
+
+  /* Auto-scroll khi có tin nhắn mới */
+  useEffect(() => {
+    const box = chatBoxRef.current;
+    if (!box) return;
+    box.scrollTo({
+      top: box.scrollHeight,
+      behavior: "smooth"
+    });
+  }, [chatMessages]);
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -99,7 +135,7 @@ const ChatBot = () => {
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 p-4 overflow-y-auto" ref={chatBoxRef}>
             {chatMessages.map((msg, idx) => (
               <div
                 key={idx}
@@ -138,21 +174,20 @@ const ChatBot = () => {
           {/* Input + Đổi chủ đề */}
           {selectedTopic && (
             <div className="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-              <div className="flex mb-2">
-                <input
+              <div className="flex mb-2 w-full">
+                <TextInput
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                   placeholder="Nhập tin nhắn..."
+                  fullWidth
                   className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  icon={<Send size={16} />}
+                  iconPosition="right"
+                  iconClassName="text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
+                  iconOnClick={handleSendMessage}
                 />
-                <button
-                  onClick={handleSendMessage}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors"
-                >
-                  <Send size={16} />
-                </button>
               </div>
 
               <div className="text-center">

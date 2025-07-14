@@ -1,20 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Product } from "@/types/product";
 import { Sparkles, RefreshCw } from "lucide-react";
 import ProductCard from "../card/ProductCard";
 import ErrorDisplay from "../shared/error/error";
 import { fetchSuggestion } from "@/lib/api/fetchSuggestion";
 import { Loader } from "../shared/loader/loader";
+import { useProduct } from "@/contexts/ProductContext";
 
 export default function AISuggestions({ className = "" }) {
+  const params = { userId: "1" };
   const [suggestions, setSuggestions] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasRequested, setHasRequested] = useState(false);
+  const { products, favorites, viewHistory } = useProduct();
+
+  const combinedProducts = useMemo(() => {
+    // Lấy danh sách sản phẩm yêu thích
+    const favoriteProducts = products.filter((product) =>
+      favorites.includes(product.id)
+    );
+
+    // Lấy danh sách sản phẩm từ lịch sử xem
+    const historyProducts = viewHistory
+      .map((item) => products.find((p) => p.id === item.productId))
+      .filter(Boolean) as Product[];
+
+    // Gộp lại cả hai mảng favorites và history
+    const allProducts = [...favoriteProducts, ...historyProducts];
+    const uniqueProducts = Array.from(
+      new Map(allProducts.map((item) => [item.id, item])).values()
+    );
+
+    return uniqueProducts;
+  }, [products, favorites, viewHistory]);
 
   // Mock AI suggestions API call
-
   const fetchSuggestions = async () => {
     setLoading(true);
     setError(null);
@@ -26,8 +48,8 @@ export default function AISuggestions({ className = "" }) {
       // Giả lập tỷ lệ thành công/không thành công của API (80% thành công, 20% thất bại)
       if (Math.random() > 0.2) {
         try {
-          const data = await fetchSuggestion();
-          setSuggestions(data);
+          await fetchSuggestion(params);
+          setSuggestions(combinedProducts.splice(0, 3));
           setHasRequested(true);
         } catch (err) {
           setError(err instanceof Error ? err.message : "Đã xảy ra lỗi");
@@ -38,11 +60,11 @@ export default function AISuggestions({ className = "" }) {
         throw new Error("Không thể lấy gợi ý lúc này");
       }
     } catch (err) {
-      // Xử lý lỗi tổng quát
       setError(err instanceof Error ? err.message : "Đã xảy ra lỗi");
       setLoading(false);
     }
   };
+
   const handleRefresh = () => {
     fetchSuggestions();
   };
