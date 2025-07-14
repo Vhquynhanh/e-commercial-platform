@@ -8,9 +8,10 @@ import { useProduct } from "@/contexts/ProductContext";
 import ProductModal from "../modal/ProductModal";
 import AISuggestions from "../card/AISuggestions";
 import ChatBot from "../chat/ChatBot";
+import { Skeleton } from "../ui/skeleton";
 
 const HomeForm = () => {
-  const { products } = useProduct();
+  const { products, isLoading } = useProduct();
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
     priceRange: "all",
@@ -124,6 +125,8 @@ const HomeForm = () => {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+        ) : isLoading ? (
+          <Skeleton />
         ) : (
           <div className="text-center py-12">
             <p className="text-light-500 dark:text-light-400 text-lg">

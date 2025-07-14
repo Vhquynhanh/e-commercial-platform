@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Product } from "@/types/product";
 import { Sparkles, RefreshCw } from "lucide-react";
 import ProductCard from "../card/ProductCard";
-import { Loader } from "../shared/loader/loader-ai";
 import ErrorDisplay from "../shared/error/error";
 import { fetchSuggestion } from "@/lib/api/fetchSuggestion";
+import { Loader } from "../shared/loader/loader";
 
 export default function AISuggestions({ className = "" }) {
   const [suggestions, setSuggestions] = useState<Product[]>([]);
@@ -101,7 +101,9 @@ export default function AISuggestions({ className = "" }) {
       )}
 
       {/* Loading State */}
-      {loading && <Loader />}
+      {loading && (
+        <Loader label="AI đang phân tích để tìm khoá học phù hợp nhất..." />
+      )}
 
       {/* Error State */}
       {error && <ErrorDisplay error={error} onRetry={fetchSuggestions} />}

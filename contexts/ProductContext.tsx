@@ -20,6 +20,7 @@ interface ProductContextType {
   viewHistory: string[];
   selectedProduct: Product | null;
   showModal: boolean;
+  isLoading: boolean;
   handleToggleFavorite: (productId: string) => void;
   handleAddToHistory: (productId: string) => void;
   handleViewDetail: (product: Product) => void;
@@ -36,6 +37,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const [viewHistory, setViewHistory] = useState<string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   /* Fetch products - user from API */
   useEffect(() => {
@@ -47,6 +49,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       setProducts(productsData);
       setFavorites(userData.favorites);
       setViewHistory(userData.viewHistory);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -95,6 +98,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         viewHistory,
         selectedProduct,
         showModal,
+        isLoading,
         handleToggleFavorite,
         handleAddToHistory,
         handleViewDetail,
